@@ -1,0 +1,1 @@
+<p>Page de création d'un post</p>

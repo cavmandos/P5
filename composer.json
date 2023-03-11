@@ -1,0 +1,17 @@
+{
+    "name": "francklebeau/p5",
+    "autoload": {
+        "psr-4": {
+            "Francklebeau\\P5\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Franck",
+            "email": "francklesuedois@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}
