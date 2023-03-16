@@ -30,6 +30,9 @@ try {
         case "creation" :
             $mainController->createPostPage();
         break;
+        case "nouveau" :
+            $mainController->createAccountPage();
+        break;
 
         default : throw new Exception("La page n'existe pas");
     }

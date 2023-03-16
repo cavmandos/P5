@@ -1,6 +1,15 @@
 <?php
 
+require_once('./app/models/MainManager.php');
+
 class MainController {
+
+    private $mainManager;
+
+    public function __construct()
+    {
+        $this->mainManager = new MainManager();
+    }
 
     private function genereratePage($data){
         extract($data);
@@ -19,9 +28,14 @@ class MainController {
         $this->genereratePage($data_page);
     }
     public function postsPage(){
+
+        //TEST
+        $datas = $this->mainManager->getDatas();
+
         $data_page = [
             "page_description" => "Page des posts - Liste de tous les posts",
             "page_title" => "BlogFL - Posts",
+            "datas"=> $datas,
             "view" => "./views/PostsView.php",
             "template" => "./views/common/template.php",
         ];
@@ -59,6 +73,15 @@ class MainController {
             "page_description" => "Page de création d'un post",
             "page_title" => "BlogFL - Créer un post",
             "view" => "./views/CreatePostView.php",
+            "template" => "./views/common/template.php",
+        ];
+        $this->genereratePage($data_page);
+    }
+    public function createAccountPage(){
+        $data_page = [
+            "page_description" => "Page de création d'un compte",
+            "page_title" => "BlogFL - Créer un compte",
+            "view" => "./views/CreateAccountView.php",
             "template" => "./views/common/template.php",
         ];
         $this->genereratePage($data_page);
