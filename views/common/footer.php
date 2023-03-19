@@ -1,4 +1,4 @@
-<footer class="border-top">
+<footer class="border-top bg-dark">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                 <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="admin">Administration</a></p>

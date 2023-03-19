@@ -19,9 +19,13 @@ class MainController {
         require_once($template);
     }
     public function homePage(){
+
+        $datas = $this->mainManager->getDatas();
+
         $data_page = [
             "page_description" => "Page d'accueil du Blog de Franck Lebeau",
             "page_title" => "BlogFL - Accueil",
+            "datas"=> $datas,
             "view" => "./views/HomeView.php",
             "template" => "./views/common/template.php",
         ];
@@ -29,7 +33,6 @@ class MainController {
     }
     public function postsPage(){
 
-        //TEST
         $datas = $this->mainManager->getDatas();
 
         $data_page = [
