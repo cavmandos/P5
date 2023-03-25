@@ -19,6 +19,6 @@
 <div class="py-5">
 <div class="d-flex flex-column flex-md-row align-items-center justify-content-center mb-3">
         <h2 class="h3 mb-0 font-weight-normal mx-3">Je n'ai pas encore de compte</h2>
-        <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="nouveau">Créer un compte</a></p>
+        <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="nouvel-utilisateur">Créer un compte</a></p>
     </div>
 </div>

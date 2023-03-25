@@ -1,5 +1,5 @@
 <?php
-    require_once('./views/common/headerCreatePost.php');
+require_once('./views/common/headerUpdatePostView.php');
 ?>
 
 <div class="bg-light">
@@ -24,8 +24,12 @@
     <textarea class="form-control" id="text" rows="16"></textarea>
   </div>
 
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-secondary btn-block mb-4">Publier</button>
+  <!-- Buttons -->
+  <div class="d-flex justify-content-around">
+    <button type="submit" class="btn btn-secondary btn-block mb-4">Modifier</button>
+    <button type="button" class="btn btn-secondary btn-block mb-4">Supprimer</button>
+    <a href="commentaires" class="btn btn-warning btn-block mb-4">Commentaires</a>
+  </div>
 </form>
     </div>
 </div>

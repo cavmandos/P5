@@ -2,30 +2,30 @@
 
 <div class="bg-light">
     <div class="container py-4">
-        <?php foreach ($datas as $ligne) : ?>
+        <!-- Display only 3 posts -->
+        <?php for($i=0; $i<3; $i++) : ?>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h2 class="card-title"><?= $ligne['title'] ?></h2>
-                    <p class="card-text"><?= $ligne['summary'] ?></p>
+                    <h2 class="card-title"><?= $datas[$i]['title'] ?></h2>
+                    <p class="card-text"><?= $datas[$i]['summary'] ?></p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p>Par <?= $ligne['user_id'] ?> le <?= $ligne['creation_date'] ?></p>
-                        <a href="#" class="btn btn-secondary stretched-link">Lire l'article</a>
+                        <p>Par <?= $datas[$i]['username'] ?> le <?= $datas[$i]['creation_date'] ?></p>
+                        <a href="#" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>
-        <?php endforeach; ?>
+        <?php endfor; ?>
 
         <div class="row my-4 justify-content-around">
             <div class="col-lg-5 col-12 border rounded p-5 bg-white">
                 <div class="d-flex flex-column align-items-center justify-content-around">
-                    <h3 class="mb-4">Mais quel illuminé a développé ce site ?</h3>
                     <img src="./public/assets/img/photo.jpg" class="rounded-circle" alt="Photo d'un curieux personnage" height="120px">
-                    <p>Franck Lebeau</p>
-                    <p>Développeur PHP/Symfony</p>
-                    <a href="#" class="btn btn-secondary stretched-link">Télécharger le CV</a>
+                    <p class="h3 my-3">Franck Lebeau</p>
+                    <p class="my-1">Développeur PHP/Symfony</p>
+                    <a href="#" class="btn btn-secondary mt-5 rounded">Télécharger le CV</a>
                 </div>
             </div>
-            <div class="col-lg-6 col-12 border rounded p-5 bg-white">
+            <div class="col-lg-6 col-12 border rounded p-5 bg-white mt-4 mt-lg-0">
                 <h3>Contactez-moi</h3>
                 <form id="create-account">
                     <div class="form-floating">
@@ -45,7 +45,7 @@
                         <label for="email">Votre demande</label>
                     </div>
                     <br />
-                    <button class="btn btn-secondary text-uppercase" id="submitButton" type="submit">Envoyer</button>
+                    <button class="btn btn-secondary text-uppercase rounded" id="submitButton" type="submit">Envoyer</button>
                 </form>
             </div>
         </div>

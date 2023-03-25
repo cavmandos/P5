@@ -30,8 +30,17 @@ try {
         case "creation" :
             $mainController->createPostPage();
         break;
-        case "nouveau" :
+        case "nouvel-utilisateur" :
             $mainController->createAccountPage();
+        break;
+        case "nouveau-post" :
+            $mainController->createPostPage();
+        break;
+        case "modifier-post" :
+            $mainController->updatePostPage();
+        break;
+        case "commentaires" :
+            $mainController->commentsPage();
         break;
 
         default : throw new Exception("La page n'existe pas");

@@ -63,9 +63,13 @@ class MainController {
         $this->genereratePage($data_page);
     }
     public function adminPage(){
+
+        $datas = $this->mainManager->getDatas();
+
         $data_page = [
             "page_description" => "Page d'administration du blog",
             "page_title" => "BlogFL - Administration",
+            "datas"=> $datas,
             "view" => "./views/AdminView.php",
             "template" => "./views/common/template.php",
         ];
@@ -85,6 +89,24 @@ class MainController {
             "page_description" => "Page de création d'un compte",
             "page_title" => "BlogFL - Créer un compte",
             "view" => "./views/CreateAccountView.php",
+            "template" => "./views/common/template.php",
+        ];
+        $this->genereratePage($data_page);
+    }
+    public function updatePostPage(){
+        $data_page = [
+            "page_description" => "Page de modification d'un post",
+            "page_title" => "BlogFL - Modifier un post",
+            "view" => "./views/UpdatePostView.php",
+            "template" => "./views/common/template.php",
+        ];
+        $this->genereratePage($data_page);
+    }
+    public function commentsPage(){
+        $data_page = [
+            "page_description" => "Page de modération des commentaires",
+            "page_title" => "BlogFL - Modérer les commentaires",
+            "view" => "./views/CommentsView.php",
             "template" => "./views/common/template.php",
         ];
         $this->genereratePage($data_page);

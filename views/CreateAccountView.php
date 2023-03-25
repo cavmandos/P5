@@ -35,7 +35,7 @@
                                     <label for="confirm-password">Confirmation du mot de passe</label>
                                 </div>
                                 <br />
-                                <button class="btn btn-secondary text-uppercase" id="submitButton" type="submit">S'inscrire</button>
+                                <button class="btn btn-secondary text-uppercase rounded" id="submitButton" type="submit">S'inscrire</button>
                             </form>
                         </div>
                     </div>
