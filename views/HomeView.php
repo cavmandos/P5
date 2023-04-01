@@ -10,7 +10,7 @@
                     <p class="card-text"><?= $datas[$i]['summary'] ?></p>
                     <div class="d-flex align-items-center justify-content-between">
                         <p>Par <?= $datas[$i]['username'] ?> le <?= $datas[$i]['creation_date'] ?></p>
-                        <a href="#" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
+                        <a href="article" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>

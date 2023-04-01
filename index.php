@@ -1,6 +1,8 @@
 <?php
+session_start();
 
 require_once('./app/controllers/MainController.php');
+require_once('./app/controllers/SecureClass.php');
 $mainController = new MainController();
 
 try {
@@ -41,6 +43,18 @@ try {
         break;
         case "commentaires" :
             $mainController->commentsPage();
+        break;
+        case "article" :
+            $mainController->singlePostPage();
+        break;
+        case "validation_login" :
+            if (!empty($_POST['email']) && !empty($_POST['password']) ) {
+                $email = Security::secureHTML($_POST['email']);
+                $password = Security::secureHTML($_POST['password']);
+                $mainController->validateLogin($email, $password);
+            } else {
+                header('Location:compte');
+            }
         break;
 
         default : throw new Exception("La page n'existe pas");

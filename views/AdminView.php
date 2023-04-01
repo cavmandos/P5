@@ -24,7 +24,7 @@ require_once('./views/common/headerAdmin.php');
                     <p class="card-text"><?= $ligne['summary'] ?></p>
                     <div class="d-flex align-items-center justify-content-between">
                         <p>Par <?= $ligne['username'] ?> le <?= $ligne['creation_date'] ?></p>
-                        <a href="#" class="btn btn-secondary rounded">Lire l'article</a>
+                        <a href="article" class="btn btn-secondary rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>

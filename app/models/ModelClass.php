@@ -4,8 +4,13 @@ abstract class Model {
     private static $pdo;
 
     private static function setBdd(){
-        self::$pdo = new PDO('mysql:host=localhost;dbname=Blog_P5;charset=utf8', 'root', 'root');
-        self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        try {
+            self::$pdo = new PDO('mysql:host=localhost;dbname=Blog_P5;charset=utf8', 'root', 'root');
+            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+        } catch (Exception $e) {
+            print_r($e);
+        }
+        
     }
 
     protected function getBdd(){

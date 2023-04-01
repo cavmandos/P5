@@ -11,7 +11,7 @@ require_once('./views/common/headerPosts.php');
                     <p class="card-text"><?= $ligne['summary'] ?></p>
                     <div class="d-flex align-items-center justify-content-between">
                         <p>Par <?= $ligne['username'] ?> le <?= $ligne['creation_date'] ?></p>
-                        <a href="#" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
+                        <a href="article" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>

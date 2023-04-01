@@ -1,6 +1,8 @@
 <?php
 
 require_once('./app/models/MainManager.php');
+require_once('./app/controllers/ToolboxClass.php');
+require_once('./app/controllers/ToolboxClass.php');
 
 class MainController {
 
@@ -21,11 +23,13 @@ class MainController {
     public function homePage(){
 
         $datas = $this->mainManager->getDatas();
+        $users = $this->mainManager->getUsers();
 
         $data_page = [
             "page_description" => "Page d'accueil du Blog de Franck Lebeau",
             "page_title" => "BlogFL - Accueil",
             "datas"=> $datas,
+            "users"=> $users,
             "view" => "./views/HomeView.php",
             "template" => "./views/common/template.php",
         ];
@@ -45,6 +49,7 @@ class MainController {
         $this->genereratePage($data_page);
     }
     public function accountPage(){
+
         $data_page = [
             "page_description" => "Page de connexion ou de création de compte",
             "page_title" => "BlogFL - Compte",
@@ -110,5 +115,29 @@ class MainController {
             "template" => "./views/common/template.php",
         ];
         $this->genereratePage($data_page);
+    }
+
+    public function singlePostPage(){
+
+        $datas = $this->mainManager->getDatas();
+
+        $data_page = [
+            "page_description" => "Article de blog",
+            "page_title" => "BlogFL - Article",
+            "datas" => $datas,
+            "view" => "./views/SinglePostView.php",
+            "template" => "./views/common/template.php",
+        ];
+        $this->genereratePage($data_page);
+    }
+
+    public function validateLogin($email, $password){
+        if($this->mainManager->isCombinationValid($email, $password)){
+            Toolbox::showAlert("Vous êtes bien connecté", Toolbox::COULEUR_VERTE);
+            header("Location:compte");
+        } else {
+            Toolbox::showAlert("Combinaison Email/Mot de passe non valide", Toolbox::COULEUR_ROUGE);
+            header("Location:compte");
+        }
     }
 }
