@@ -35,4 +35,44 @@ class MainManager extends Model {
         $passwordDB = $this->getPasswordUser($email);
         return password_verify($password, $passwordDB);
     }
+
+    public function isAdmin($email){
+        $req = "SELECT is_admin FROM user WHERE email = :email ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result['is_admin'];
+    }
+
+    public function setTokenDB($email, $token){
+        $req = "UPDATE user SET token = :token WHERE email = :email ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':token', $token, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result['token'];
+    }
+
+    public function verifyToken($email){
+        $req = "SELECT token FROM user WHERE email = :email ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $result['token'];
+    }
+
+    public function removeTokenDB($email){
+        $req = "UPDATE user SET token = 0 WHERE email = :email ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+    }
 }

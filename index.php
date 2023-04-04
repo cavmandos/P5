@@ -17,36 +17,67 @@ try {
         case "accueil" :
             $mainController->homePage();
         break;
+
         case "posts" :
             $mainController->postsPage();
         break;
+
         case "compte" :
             $mainController->accountPage();
         break;
+
         case "admin" :
-            $mainController->adminPage();
+            $validate = $mainController->validateSession();
+            if(!Security::isAllowed() && !$validate == 1){
+                Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } else {
+                $mainController->adminPage();
+            } 
         break;
+
         case "inscription" :
             $mainController->registerPage();
         break;
-        case "creation" :
-            $mainController->createPostPage();
-        break;
+
         case "nouvel-utilisateur" :
             $mainController->createAccountPage();
         break;
+
         case "nouveau-post" :
-            $mainController->createPostPage();
+            $validate = $mainController->validateSession();
+            if(!Security::isAllowed() && !$validate == 1){
+                Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } else {
+                $mainController->createPostPage();
+            }  
         break;
+
         case "modifier-post" :
-            $mainController->updatePostPage();
+            $validate = $mainController->validateSession();
+            if(!Security::isAllowed() && !$validate == 1 ){
+                Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } else {
+                $mainController->updatePostPage();
+            } 
         break;
+
         case "commentaires" :
-            $mainController->commentsPage();
+            $validate = $mainController->validateSession();
+            if(!Security::isAllowed() && !$validate == 1){
+                Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } else {
+                $mainController->commentsPage();
+            } 
         break;
+
         case "article" :
             $mainController->singlePostPage();
         break;
+
         case "validation_login" :
             if (!empty($_POST['email']) && !empty($_POST['password']) ) {
                 $email = Security::secureHTML($_POST['email']);
@@ -55,6 +86,10 @@ try {
             } else {
                 header('Location:compte');
             }
+        break;
+        
+        case "deconnexion" :
+            $mainController->logoutPage();
         break;
 
         default : throw new Exception("La page n'existe pas");

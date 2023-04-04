@@ -23,13 +23,13 @@ class MainController {
     public function homePage(){
 
         $datas = $this->mainManager->getDatas();
-        $users = $this->mainManager->getUsers();
+        //$users = $this->mainManager->getUsers();
 
         $data_page = [
             "page_description" => "Page d'accueil du Blog de Franck Lebeau",
             "page_title" => "BlogFL - Accueil",
             "datas"=> $datas,
-            "users"=> $users,
+            //"users"=> $users,
             "view" => "./views/HomeView.php",
             "template" => "./views/common/template.php",
         ];
@@ -131,13 +131,46 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
+    //LOGIN
     public function validateLogin($email, $password){
         if($this->mainManager->isCombinationValid($email, $password)){
+            $rank = $this->mainManager->isAdmin($email);
+            $newToken = Security::getRandomToken();
+            $this->mainManager->setTokenDB($email, $newToken);
             Toolbox::showAlert("Vous êtes bien connecté", Toolbox::COULEUR_VERTE);
+            $_SESSION['login'] = [
+                "email" => $email,
+                "rank" => $rank,
+                "token" => $newToken,
+            ];
             header("Location:compte");
         } else {
             Toolbox::showAlert("Combinaison Email/Mot de passe non valide", Toolbox::COULEUR_ROUGE);
             header("Location:compte");
         }
+    }
+
+    //SESSION
+    public function validateSession(){
+        if(isset($_SESSION['login']['email'])){
+            $email = $_SESSION['login']['email'];
+            $token1 = $_SESSION['login']['token'];
+            $token2 = $this->mainManager->verifyToken($email);
+            if($token1===$token2){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    //LOGOUT
+    public function logoutPage(){
+        $email = $_SESSION['login']['email'];
+        $this->mainManager->removeTokenDB($email);
+        Toolbox::showAlert("Vous êtes maintenant déconnecté", Toolbox::COULEUR_VERTE);
+        session_destroy();
+        unset($_SESSION);
+        header('Location:accueil');
     }
 }
