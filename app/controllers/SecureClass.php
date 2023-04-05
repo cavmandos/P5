@@ -5,7 +5,20 @@ class Security {
         return htmlentities($element);
     }
     public static function isAllowed(){
-        return(!empty($_SESSION['login']) && $_SESSION['login']['rank'] == 1);
+        if(!empty($_SESSION['login'])){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public static function isAdmin(){
+        $admin = $_SESSION['login']['rank'];
+        if($admin==1){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public static function getRandomToken($length = 32){

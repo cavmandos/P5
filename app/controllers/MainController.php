@@ -20,11 +20,11 @@ class MainController {
         $page_content = ob_get_clean();
         require_once($template);
     }
-    public function homePage(){
 
+    //HOMEPAGE
+    public function homePage(){
         $datas = $this->mainManager->getDatas();
         //$users = $this->mainManager->getUsers();
-
         $data_page = [
             "page_description" => "Page d'accueil du Blog de Franck Lebeau",
             "page_title" => "BlogFL - Accueil",
@@ -35,10 +35,10 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
+
+    //POSTS PAGE
     public function postsPage(){
-
         $datas = $this->mainManager->getDatas();
-
         $data_page = [
             "page_description" => "Page des posts - Liste de tous les posts",
             "page_title" => "BlogFL - Posts",
@@ -48,8 +48,9 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
-    public function accountPage(){
 
+    //ACCOUNT PAGE
+    public function accountPage(){
         $data_page = [
             "page_description" => "Page de connexion ou de création de compte",
             "page_title" => "BlogFL - Compte",
@@ -58,19 +59,10 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
-    public function registerPage(){
-        $data_page = [
-            "page_description" => "Page de création du compte",
-            "page_title" => "BlogFL - Création du compte",
-            "view" => "./views/RegisterView.php",
-            "template" => "./views/common/template.php",
-        ];
-        $this->genereratePage($data_page);
-    }
+
+    //ADMIN PAGE
     public function adminPage(){
-
         $datas = $this->mainManager->getDatas();
-
         $data_page = [
             "page_description" => "Page d'administration du blog",
             "page_title" => "BlogFL - Administration",
@@ -80,6 +72,8 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
+
+    //CREATE POST PAGE
     public function createPostPage(){
         $data_page = [
             "page_description" => "Page de création d'un post",
@@ -89,6 +83,8 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
+
+    //CREATE ACCOUNT PAGE
     public function createAccountPage(){
         $data_page = [
             "page_description" => "Page de création d'un compte",
@@ -98,6 +94,8 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
+
+    //UPDATE POST PAGE
     public function updatePostPage(){
         $data_page = [
             "page_description" => "Page de modification d'un post",
@@ -107,6 +105,8 @@ class MainController {
         ];
         $this->genereratePage($data_page);
     }
+
+    //COMMENTS PAGE
     public function commentsPage(){
         $data_page = [
             "page_description" => "Page de modération des commentaires",
@@ -117,10 +117,9 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
+    //POST PAGE
     public function singlePostPage(){
-
         $datas = $this->mainManager->getDatas();
-
         $data_page = [
             "page_description" => "Article de blog",
             "page_title" => "BlogFL - Article",
@@ -157,10 +156,12 @@ class MainController {
             $token1 = $_SESSION['login']['token'];
             $token2 = $this->mainManager->verifyToken($email);
             if($token1===$token2){
-                return true;
+                return 1;
             } else {
-                return false;
+                return 0;
             }
+        } else {
+            return 0;
         }
     }
 

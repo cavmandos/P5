@@ -1,9 +1,15 @@
 <?php
+
 session_start();
 
 require_once('./app/controllers/MainController.php');
 require_once('./app/controllers/SecureClass.php');
 $mainController = new MainController();
+
+//SECURITY FONCTIONS
+$validate = $mainController->validateSession();
+$admin = Security::isAdmin();
+$visitor = Security::isAllowed();
 
 try {
     if(empty($_GET['page'])){
@@ -27,17 +33,12 @@ try {
         break;
 
         case "admin" :
-            $validate = $mainController->validateSession();
-            if(!Security::isAllowed() && !$validate == 1){
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $mainController->adminPage();
+            } else {
                 Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
                 header("Location:accueil");
-            } else {
-                $mainController->adminPage();
             } 
-        break;
-
-        case "inscription" :
-            $mainController->registerPage();
         break;
 
         case "nouvel-utilisateur" :
@@ -45,32 +46,29 @@ try {
         break;
 
         case "nouveau-post" :
-            $validate = $mainController->validateSession();
-            if(!Security::isAllowed() && !$validate == 1){
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $mainController->createPostPage();
+            } else {
                 Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
                 header("Location:accueil");
-            } else {
-                $mainController->createPostPage();
             }  
         break;
 
         case "modifier-post" :
-            $validate = $mainController->validateSession();
-            if(!Security::isAllowed() && !$validate == 1 ){
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $mainController->updatePostPage();
+            } else {
                 Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
                 header("Location:accueil");
-            } else {
-                $mainController->updatePostPage();
             } 
         break;
 
         case "commentaires" :
-            $validate = $mainController->validateSession();
-            if(!Security::isAllowed() && !$validate == 1){
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $mainController->commentsPage();
+            } else {
                 Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
                 header("Location:accueil");
-            } else {
-                $mainController->commentsPage();
             } 
         break;
 
@@ -87,7 +85,7 @@ try {
                 header('Location:compte');
             }
         break;
-        
+
         case "deconnexion" :
             $mainController->logoutPage();
         break;
