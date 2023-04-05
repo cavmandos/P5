@@ -8,7 +8,7 @@ $mainController = new MainController();
 
 //SECURITY FONCTIONS
 $validate = $mainController->validateSession();
-$admin = Security::isAdmin();
+$admin = $mainController->checkAdmin();
 $visitor = Security::isAllowed();
 
 try {

@@ -133,13 +133,11 @@ class MainController {
     //LOGIN
     public function validateLogin($email, $password){
         if($this->mainManager->isCombinationValid($email, $password)){
-            $rank = $this->mainManager->isAdmin($email);
             $newToken = Security::getRandomToken();
             $this->mainManager->setTokenDB($email, $newToken);
             Toolbox::showAlert("Vous êtes bien connecté", Toolbox::COULEUR_VERTE);
             $_SESSION['login'] = [
                 "email" => $email,
-                "rank" => $rank,
                 "token" => $newToken,
             ];
             header("Location:compte");
@@ -163,6 +161,12 @@ class MainController {
         } else {
             return 0;
         }
+    }
+
+    //ADMIN CHECK
+    public function checkAdmin(){
+        $res = $this->mainManager->isAdmin($_SESSION['login']['email']);
+        return $res;
     }
 
     //LOGOUT
