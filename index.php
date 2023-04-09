@@ -45,6 +45,21 @@ try {
             $mainController->createAccountPage();
         break;
 
+        case "validation_nouveau_compte":
+            if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['username']) && !empty($_POST['confirm-password'])){
+                $email = Security::secureHTML($_POST['email']);
+                $password = Security::secureHTML($_POST['password']);
+                $firstname = Security::secureHTML($_POST['firstname']);
+                $lastname = Security::secureHTML($_POST['lastname']);
+                $username = Security::secureHTML($_POST['username']);
+                $confirmPassword = Security::secureHTML($_POST['confirm-password']);
+                $mainController->validateRegistration($email, $password, $firstname, $lastname, $username);
+            } else {
+                Toolbox::showAlert("Tous les champs sont obligatoires pour l'inscription", Toolbox::COULEUR_ROUGE);
+                header("Location:nouvel-utilisateur");
+            }
+        break;
+
         case "nouveau-post" :
             if($admin == 1 && $validate == 1 && $visitor == 1){
                 $mainController->createPostPage();

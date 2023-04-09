@@ -75,4 +75,34 @@ class MainManager extends Model {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
     }
+
+    public function isAccountAvailable($email){
+        $req = "SELECT * FROM user WHERE email = :email ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return empty($result);
+    }
+
+    public function createAccountDB($email, $passwordHash, $firstname, $lastname, $username){
+        $datetime = date_create()->format('Y-m-d H:i:s');
+        try {
+            $req = "INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `creation_date`, `is_admin`, `is_online`, `token`) VALUES (NULL, :firstname, :lastname, :username, :email, :password, :datetime, '0', '0', '');";
+            $stmt = $this->getBdd()->prepare($req);
+            $stmt->bindValue(':firstname', $firstname, PDO::PARAM_STR);
+            $stmt->bindValue(':lastname', $lastname, PDO::PARAM_STR);
+            $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $stmt->bindValue(':password', $passwordHash, PDO::PARAM_STR);
+            $stmt->bindValue(':datetime', $datetime, PDO::PARAM_STR);
+            $stmt->execute();
+            $isRegistered = ($stmt->rowCount() > 0);
+            $stmt->closeCursor();
+            return $isRegistered;
+          } catch(PDOException $e) {
+            echo $req . "<br>" . $e->getMessage();
+          }
+    }
 }

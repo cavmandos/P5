@@ -178,4 +178,21 @@ class MainController {
         unset($_SESSION);
         header('Location:accueil');
     }
+
+    //REGISTRATION
+    public function validateRegistration($email, $password, $firstname, $lastname, $username){
+        if($this->mainManager->isAccountAvailable($email)){
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            if($this->mainManager->createAccountDB($email, $passwordHash, $firstname, $lastname, $username)){
+                Toolbox::showAlert("Le compte a bien été créé ! Bienvenue à Twin Peaks !", Toolbox::COULEUR_VERTE);
+                header("Location:compte");
+            } else {
+                Toolbox::showAlert("Erreur lors de la création du compte", Toolbox::COULEUR_ORANGE);
+                header("Location:nouvel-utilisateur");
+            };
+        } else {
+            Toolbox::showAlert("Ce mail est déjà utilisé par un autre compte.", Toolbox::COULEUR_ROUGE);
+            header("Location:nouvel-utilisateur");
+        }
+    }
 }
