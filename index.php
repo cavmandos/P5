@@ -60,6 +60,10 @@ try {
             }
         break;
 
+        case "validation_modification_mail":
+            $mainController->updateEmail(Security::secureHTML($_POST['email']));
+        break;
+
         case "nouveau-post" :
             if($admin == 1 && $validate == 1 && $visitor == 1){
                 $mainController->createPostPage();
@@ -111,4 +115,3 @@ try {
 } catch (Exception $e) {
     $error = $e->getMessage();
 }
-

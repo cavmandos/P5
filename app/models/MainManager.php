@@ -12,9 +12,10 @@ class MainManager extends Model {
         return $datas;
     }
 
-    public function getUsers(){
+    public function getUser($email){
         $pdo = $this->getBdd();
-        $req = $pdo->prepare("SELECT * FROM user");
+        $req = $pdo->prepare("SELECT first_name, last_name, username, email, is_admin FROM user WHERE email = :email");
+        $req->bindValue(':email', $email, PDO::PARAM_STR);
         $req->execute();
         $datas = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
@@ -104,5 +105,16 @@ class MainManager extends Model {
           } catch(PDOException $e) {
             echo $req . "<br>" . $e->getMessage();
           }
+    }
+
+    public function updateMailUser($login, $email){
+        $req = "UPDATE user SET email = :email WHERE email = :login ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':login', $login, PDO::PARAM_STR);
+        $stmt->execute();
+        $isRegistered = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isRegistered;
     }
 }

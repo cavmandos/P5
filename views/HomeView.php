@@ -22,7 +22,7 @@
                     <img src="./public/assets/img/photo.jpg" class="rounded-circle" alt="Photo d'un curieux personnage" height="120px">
                     <p class="h3 my-3">Franck Lebeau</p>
                     <p class="my-1">Développeur PHP/Symfony</p>
-                    <a href="#" class="btn btn-secondary mt-5 rounded">Télécharger le CV</a>
+                    <p><a href="./public/CV_Lebeau.pdf" class="btn btn-secondary mt-5 rounded" target="_blank">Télécharger le CV</a></p>
                 </div>
             </div>
             <div class="col-lg-6 col-12 border rounded p-5 bg-white mt-4 mt-lg-0">

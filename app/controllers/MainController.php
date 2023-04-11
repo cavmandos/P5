@@ -2,7 +2,6 @@
 
 require_once('./app/models/MainManager.php');
 require_once('./app/controllers/ToolboxClass.php');
-require_once('./app/controllers/ToolboxClass.php');
 
 class MainController {
 
@@ -24,12 +23,10 @@ class MainController {
     //HOMEPAGE
     public function homePage(){
         $datas = $this->mainManager->getDatas();
-        //$users = $this->mainManager->getUsers();
         $data_page = [
             "page_description" => "Page d'accueil du Blog de Franck Lebeau",
             "page_title" => "BlogFL - Accueil",
             "datas"=> $datas,
-            //"users"=> $users,
             "view" => "./views/HomeView.php",
             "template" => "./views/common/template.php",
         ];
@@ -51,9 +48,13 @@ class MainController {
 
     //ACCOUNT PAGE
     public function accountPage(){
+        $email = $_SESSION['login']['email'];
+        $datas = $this->mainManager->getUser($email);
         $data_page = [
             "page_description" => "Page de connexion ou de création de compte",
             "page_title" => "BlogFL - Compte",
+            "datas" => $datas,
+            "page_javascript" => ['profil.js'],
             "view" => "./views/AccountView.php",
             "template" => "./views/common/template.php",
         ];
@@ -174,9 +175,9 @@ class MainController {
         $email = $_SESSION['login']['email'];
         $this->mainManager->removeTokenDB($email);
         Toolbox::showAlert("Vous êtes maintenant déconnecté", Toolbox::COULEUR_VERTE);
+        header('Location:compte');
         session_destroy();
         unset($_SESSION);
-        header('Location:accueil');
     }
 
     //REGISTRATION
@@ -193,6 +194,22 @@ class MainController {
         } else {
             Toolbox::showAlert("Ce mail est déjà utilisé par un autre compte.", Toolbox::COULEUR_ROUGE);
             header("Location:nouvel-utilisateur");
+        }
+    }
+
+    //UPDATE EMAIL
+    public function updateEmail($email){
+        if($this->mainManager->isAccountAvailable($email)){
+            if($this->mainManager->updateMailUser($_SESSION['login']['email'],$email)){
+                Toolbox::showAlert("Votre email a bien été mis à jour", Toolbox::COULEUR_VERTE);
+                $_SESSION['login']['email'] = $email;
+            } else {
+                Toolbox::showAlert("La mise à jour a echoué", Toolbox::COULEUR_ORANGE);
+            };
+            header("Location:compte");
+        } else {
+            Toolbox::showAlert("Ce mail est déjà utilisé par un autre compte",Toolbox::COULEUR_ROUGE);
+            header("Location:compte");
         }
     }
 }
