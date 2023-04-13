@@ -212,4 +212,15 @@ class MainController {
             header("Location:compte");
         }
     }
+
+    //DELETE ACCOUNT
+    public function deleteAccount(){
+        if($this->mainManager->deleteUserAccount($_SESSION['login']['email'])){
+            Toolbox::showAlert("La suppression du compte est effectuée", Toolbox::COULEUR_VERTE);
+            $this->logoutPage();
+        } else {
+            Toolbox::showAlert("La suppression n'a pas été effectuée", Toolbox::COULEUR_ORANGE);
+            header("Location:compte");
+        };
+    }
 }

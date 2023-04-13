@@ -53,7 +53,14 @@ try {
                 $lastname = Security::secureHTML($_POST['lastname']);
                 $username = Security::secureHTML($_POST['username']);
                 $confirmPassword = Security::secureHTML($_POST['confirm-password']);
-                $mainController->validateRegistration($email, $password, $firstname, $lastname, $username);
+
+                if($password===$confirmPassword){
+                    $mainController->validateRegistration($email, $password, $firstname, $lastname, $username);
+                } else {
+                    Toolbox::showAlert("Le mot de passe et sa confirmation ne sont pas identiques", Toolbox::COULEUR_ROUGE);
+                    header("Location:nouvel-utilisateur");
+                }
+
             } else {
                 Toolbox::showAlert("Tous les champs sont obligatoires pour l'inscription", Toolbox::COULEUR_ROUGE);
                 header("Location:nouvel-utilisateur");
@@ -62,6 +69,10 @@ try {
 
         case "validation_modification_mail":
             $mainController->updateEmail(Security::secureHTML($_POST['email']));
+        break;
+
+        case "suppression_compte":
+            $mainController->deleteAccount();
         break;
 
         case "nouveau-post" :

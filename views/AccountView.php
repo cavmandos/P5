@@ -60,6 +60,17 @@ if(!isset($_SESSION['login'])){
             </form>
         </div>
 
+        <div class="d-flex justify-content-center">
+            <button id="btnDeleteAccount" class="btn btn-danger">Supprimer son compte</button>
+        </div>
+
+        <div id="deleteAccount" class="d-none my-2">
+            <div class="alert alert-danger d-flex flex-column justify-content-center align-items-center">
+                <p class="my-1">Veuillez confirmez la suppression du compte</p>
+                <a href="suppression_compte" class="btn btn-danger">Je supprime</a>
+            </div>
+        </div>
+
         <p class="text-center my-2">Votre statut : '; if($datas[0]["is_admin"] == 1){ echo "administrateur";} else { echo "inscrit";}; echo '</p>
         <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="deconnexion">Se déconnecter</a></p>
     </div>

@@ -117,4 +117,14 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $isRegistered;
     }
+
+    public function deleteUserAccount($email){
+        $req = "DELETE FROM user WHERE email = :email";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $isRegistered = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isRegistered;
+    }
 }
