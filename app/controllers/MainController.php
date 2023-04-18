@@ -119,8 +119,8 @@ class MainController {
     }
 
     //POST PAGE
-    public function singlePostPage(){
-        $datas = $this->mainManager->getDatas();
+    public function singlePostPage($id){
+        $datas = $this->mainManager->getPost($id);
         $data_page = [
             "page_description" => "Article de blog",
             "page_title" => "BlogFL - Article",
@@ -166,7 +166,8 @@ class MainController {
 
     //ADMIN CHECK
     public function checkAdmin(){
-        $res = $this->mainManager->isAdmin($_SESSION['login']['email']);
+        $email = $_SESSION['login']['email'];
+        $res = $this->mainManager->isAdmin($email);
         return $res;
     }
 
@@ -221,6 +222,20 @@ class MainController {
         } else {
             Toolbox::showAlert("La suppression n'a pas été effectuée", Toolbox::COULEUR_ORANGE);
             header("Location:compte");
+        };
+    }
+
+    //CREATE POST
+    public function createPost($title, $summary, $content){
+        $email =  $_SESSION['login']['email'];
+        $user = $this->mainManager->getIdUser($email);
+        $user = $user[0]['id_user'];
+        if($this->mainManager->createPostDB($title, $summary, $content, $user)){
+            Toolbox::showAlert("Le post a bien été créé ! ", Toolbox::COULEUR_VERTE);
+            header("Location:posts");
+        } else {
+            Toolbox::showAlert("Erreur lors de la création du post", Toolbox::COULEUR_ORANGE);
+            header("Location:nouveau-post");
         };
     }
 }

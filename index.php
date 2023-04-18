@@ -84,6 +84,18 @@ try {
             }  
         break;
 
+        case "validation_nouveau_post":
+            if(!empty($_POST['title']) && !empty($_POST['intro']) && !empty($_POST['text'])){
+                $title = Security::secureHTML($_POST['title']);
+                $intro = Security::secureHTML($_POST['intro']);
+                $text = Security::secureHTML($_POST['text']);
+                $mainController->createPost($title, $intro, $text);
+            } else {
+                Toolbox::showAlert("Tous les champs sont obligatoires pour publier un post", Toolbox::COULEUR_ROUGE);
+                header("Location:nouveau-post");
+            }
+        break;
+
         case "modifier-post" :
             if($admin == 1 && $validate == 1 && $visitor == 1){
                 $mainController->updatePostPage();
@@ -103,7 +115,8 @@ try {
         break;
 
         case "article" :
-            $mainController->singlePostPage();
+            $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+            $mainController->singlePostPage($id);
         break;
 
         case "validation_login" :

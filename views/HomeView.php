@@ -2,19 +2,20 @@
 
 <div class="bg-light">
     <div class="container py-4">
-        <!-- Display only 3 posts -->
-        <?php for($i=0; $i<3; $i++) : ?>
+        <!-- Display only 3 lasts posts -->
+        <?php $datas = array_slice($datas, -3);
+        foreach(array_reverse($datas) as $ligne) : ?>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h2 class="card-title"><?= $datas[$i]['title'] ?></h2>
-                    <p class="card-text"><?= $datas[$i]['summary'] ?></p>
+                    <h2 class="card-title"><?= $ligne['title'] ?></h2>
+                    <p class="card-text"><?= $ligne['summary'] ?></p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p>Par <?= $datas[$i]['username'] ?> le <?= $datas[$i]['creation_date'] ?></p>
-                        <a href="article" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
+                        <p>Par <?= $ligne['username'] ?> le <?= $ligne['creation_date'] ?></p>
+                        <a href="article&amp;id=<?= $ligne['id_post'] ?>" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>
-        <?php endfor; ?>
+        <?php endforeach; ?>
 
         <div class="row my-4 justify-content-around">
             <div class="col-lg-5 col-12 border rounded p-5 bg-white">

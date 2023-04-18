@@ -5,7 +5,17 @@ require_once('./app/models/ModelClass.php');
 class MainManager extends Model {
     public function getDatas(){
         $pdo = $this->getBdd();
-        $req = $pdo->prepare("SELECT * FROM post INNER JOIN user ON post.user_id = user.id");
+        $req = $pdo->prepare("SELECT * FROM post INNER JOIN user ON post.user_id = user.id_user");
+        $req->execute();
+        $datas = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $datas;
+    }
+
+    public function getPost($id){
+        $pdo = $this->getBdd();
+        $req = $pdo->prepare("SELECT * FROM post INNER JOIN user ON post.user_id = user.id_user WHERE id_post = :id");
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
         $req->execute();
         $datas = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
@@ -14,7 +24,7 @@ class MainManager extends Model {
 
     public function getUser($email){
         $pdo = $this->getBdd();
-        $req = $pdo->prepare("SELECT first_name, last_name, username, email, is_admin FROM user WHERE email = :email");
+        $req = $pdo->prepare("SELECT id_user, first_name, last_name, username, email, is_admin FROM user WHERE email = :email");
         $req->bindValue(':email', $email, PDO::PARAM_STR);
         $req->execute();
         $datas = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -23,7 +33,7 @@ class MainManager extends Model {
     }
 
     private function getPasswordUser($email){
-        $req = "SELECT password FROM user WHERE email = :email ";
+        $req = "SELECT password FROM user WHERE email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -90,7 +100,7 @@ class MainManager extends Model {
     public function createAccountDB($email, $passwordHash, $firstname, $lastname, $username){
         $datetime = date_create()->format('Y-m-d H:i:s');
         try {
-            $req = "INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `email`, `password`, `creation_date`, `is_admin`, `is_online`, `token`) VALUES (NULL, :firstname, :lastname, :username, :email, :password, :datetime, '0', '0', '');";
+            $req = "INSERT INTO `user` (`id_user`, `first_name`, `last_name`, `username`, `email`, `password`, `user_creation_date`, `is_admin`, `is_online`, `token`) VALUES (NULL, :firstname, :lastname, :username, :email, :password, :datetime, '0', '0', '');";
             $stmt = $this->getBdd()->prepare($req);
             $stmt->bindValue(':firstname', $firstname, PDO::PARAM_STR);
             $stmt->bindValue(':lastname', $lastname, PDO::PARAM_STR);
@@ -126,5 +136,34 @@ class MainManager extends Model {
         $isRegistered = ($stmt->rowCount() > 0);
         $stmt->closeCursor();
         return $isRegistered;
+    }
+
+    public function createPostDB($title, $summary, $content, $user){
+        $datetime = date_create()->format('Y-m-d H:i:s');
+        try {
+            $req = "INSERT INTO `post` (`id_post`, `title`, `summary`, `content`, `creation_date`, `update_date`, `user_id`) VALUES (NULL, :title, :summary, :content, :datetime, :datetime, :user);";
+            $stmt = $this->getBdd()->prepare($req);
+            $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+            $stmt->bindValue(':summary', $summary, PDO::PARAM_STR);
+            $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+            $stmt->bindValue(':datetime', $datetime, PDO::PARAM_STR);
+            $stmt->bindValue(':user', $user, PDO::PARAM_INT);
+            $stmt->execute();
+            $isRegistered = ($stmt->rowCount() > 0);
+            $stmt->closeCursor();
+            return $isRegistered;
+          } catch(PDOException $e) {
+            echo $req . "<br>" . $e->getMessage();
+          }
+    }
+
+    public function getIdUser($email){
+        $pdo = $this->getBdd();
+        $req = $pdo->prepare("SELECT id_user FROM user WHERE email = :email");
+        $req->bindValue(':email', $email, PDO::PARAM_STR);
+        $req->execute();
+        $datas = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $datas;
     }
 }
