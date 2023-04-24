@@ -97,10 +97,12 @@ class MainController {
     }
 
     //UPDATE POST PAGE
-    public function updatePostPage(){
+    public function updatePostPage($id){
+        $datas = $this->mainManager->getPost($id);
         $data_page = [
             "page_description" => "Page de modification d'un post",
             "page_title" => "BlogFL - Modifier un post",
+            "datas" => $datas,
             "view" => "./views/UpdatePostView.php",
             "template" => "./views/common/template.php",
         ];
@@ -108,10 +110,12 @@ class MainController {
     }
 
     //COMMENTS PAGE
-    public function commentsPage(){
+    public function commentsPage($id){
+        $comments = $this->mainManager->getCommentsNotOK($id);
         $data_page = [
             "page_description" => "Page de modération des commentaires",
             "page_title" => "BlogFL - Modérer les commentaires",
+            "comments" => $comments,
             "view" => "./views/CommentsView.php",
             "template" => "./views/common/template.php",
         ];
@@ -121,10 +125,12 @@ class MainController {
     //POST PAGE
     public function singlePostPage($id){
         $datas = $this->mainManager->getPost($id);
+        $comments = $this->mainManager->getCommentsOK($id);
         $data_page = [
             "page_description" => "Article de blog",
             "page_title" => "BlogFL - Article",
             "datas" => $datas,
+            "comments" => $comments,
             "view" => "./views/SinglePostView.php",
             "template" => "./views/common/template.php",
         ];
@@ -236,6 +242,64 @@ class MainController {
         } else {
             Toolbox::showAlert("Erreur lors de la création du post", Toolbox::COULEUR_ORANGE);
             header("Location:nouveau-post");
+        };
+    }
+
+    //UPDATE POST
+    public function updatePost($id, $title, $summary, $content){
+        if($this->mainManager->updatePostDB($id, $title, $summary, $content)){
+            Toolbox::showAlert("Le post a bien été modifié ! ", Toolbox::COULEUR_VERTE);
+            header("Location:posts");
+        } else {
+            Toolbox::showAlert("Erreur lors de la modification du post", Toolbox::COULEUR_ORANGE);
+            header("Location:modification-post");
+        };
+    }
+
+    //DELETE POST
+    public function deletePost($id){
+        if($this->mainManager->deletePostDB($id)){
+            Toolbox::showAlert("Le post a bien été supprimé ! ", Toolbox::COULEUR_VERTE);
+            header("Location:posts");
+        } else {
+            Toolbox::showAlert("Erreur lors de la suppression du post", Toolbox::COULEUR_ORANGE);
+            header("Location:modification-post");
+        };
+    }
+
+    //CREATE COMMENT
+    public function createComment($id, $comment){
+        $email =  $_SESSION['login']['email'];
+        $user = $this->mainManager->getIdUser($email);
+        $user = $user[0]['id_user'];
+        if($this->mainManager->createCommentDB($id, $comment, $user)){
+            Toolbox::showAlert("Le commentaire a bien été créé ! Il sera soumis à validation par nos équipes. ", Toolbox::COULEUR_VERTE);
+            header("Location:posts");
+        } else {
+            Toolbox::showAlert("Erreur lors de la création du commentaire", Toolbox::COULEUR_ORANGE);
+            header("Location:posts");
+        };
+    }
+
+    //DELETE COMMENT
+    public function deleteComment($id){
+        if($this->mainManager->deleteCommentDB($id)){
+            Toolbox::showAlert("Le commentaire a bien été supprimé ! ", Toolbox::COULEUR_VERTE);
+            header("Location:posts");
+        } else {
+            Toolbox::showAlert("Erreur lors de la suppression du commentaire", Toolbox::COULEUR_ORANGE);
+            header("Location:modification-post");
+        };
+    }
+
+    //CONFIRM COMMENT
+    public function confirmComment($id){
+        if($this->mainManager->confirmCommentDB($id)){
+            Toolbox::showAlert("Le commentaire a bien été validé ! ", Toolbox::COULEUR_VERTE);
+            header("Location:posts");
+        } else {
+            Toolbox::showAlert("Erreur lors de la confirmation du commentaire", Toolbox::COULEUR_ORANGE);
+            header("Location:modification-post");
         };
     }
 }

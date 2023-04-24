@@ -22,6 +22,49 @@ class MainManager extends Model {
         return $datas;
     }
 
+    public function getCommentsOK($id){
+        $pdo = $this->getBdd();
+        $req = $pdo->prepare("SELECT * FROM comment INNER JOIN user ON comment.user_id = user.id_user WHERE post_id = :id AND is_valid = 1");
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+        $comments = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $comments;
+    }
+
+    public function getCommentsNotOK($id){
+        $pdo = $this->getBdd();
+        $req = $pdo->prepare("SELECT * FROM comment INNER JOIN user ON comment.user_id = user.id_user WHERE post_id = :id AND is_valid = 0");
+        $req->bindValue(':id', $id, PDO::PARAM_INT);
+        $req->execute();
+        $comments = $req->fetchAll(PDO::FETCH_ASSOC);
+        $req->closeCursor();
+        return $comments;
+    }
+
+    public function updatePostDB($id, $title, $summary, $content){
+        $req = "UPDATE post SET title = :title, summary = :summary, content = :content WHERE id_post = :id ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+        $stmt->bindValue(':summary', $summary, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $isRegistered = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isRegistered;
+    }
+
+    public function deletePostDB($id){
+        $req = "DELETE FROM post WHERE id_post = :id";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $isDeleted = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isDeleted;
+    }
+
     public function getUser($email){
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT id_user, first_name, last_name, username, email, is_admin FROM user WHERE email = :email");
@@ -165,5 +208,43 @@ class MainManager extends Model {
         $datas = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
         return $datas;
+    }
+
+    public function createCommentDB($id, $comment, $user){
+        $datetime = date_create()->format('Y-m-d H:i:s');
+        try {
+            $req = "INSERT INTO `comment` (`id_comment`, `comment_content`, `creation_date`, `is_valid`, `user_id`, `post_id`) VALUES (NULL, :comment, :datetime, 0, :user_id, :post_id);";
+            $stmt = $this->getBdd()->prepare($req);
+            $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+            $stmt->bindValue(':user_id', $user, PDO::PARAM_INT);
+            $stmt->bindValue(':post_id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':datetime', $datetime, PDO::PARAM_STR);
+            $stmt->execute();
+            $isRegistered = ($stmt->rowCount() > 0);
+            $stmt->closeCursor();
+            return $isRegistered;
+          } catch(PDOException $e) {
+            echo $req . "<br>" . $e->getMessage();
+          }
+    }
+
+    public function deleteCommentDB($id){
+        $req = "DELETE FROM comment WHERE id_comment = :id";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $isDeleted = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isDeleted;
+    }
+
+    public function confirmCommentDB($id){
+        $req = "UPDATE comment SET is_valid = 1 WHERE id_comment = :id ";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $isRegistered = ($stmt->rowCount() > 0);
+        $stmt->closeCursor();
+        return $isRegistered;
     }
 }

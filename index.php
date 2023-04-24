@@ -98,20 +98,86 @@ try {
 
         case "modifier-post" :
             if($admin == 1 && $validate == 1 && $visitor == 1){
-                $mainController->updatePostPage();
+                $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+                $mainController->updatePostPage($id);
             } else {
                 Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
                 header("Location:accueil");
             } 
         break;
 
-        case "commentaires" :
+        case "validation_modifier_post":
             if($admin == 1 && $validate == 1 && $visitor == 1){
-                $mainController->commentsPage();
+                if(!empty($_POST['title']) || !empty($_POST['intro']) || !empty($_POST['text'])){
+                    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+                    $title = Security::secureHTML($_POST['title']);
+                    $intro = Security::secureHTML($_POST['intro']);
+                    $text = Security::secureHTML($_POST['text']);
+                    $mainController->updatePost($id, $title, $intro, $text);
+                } else {
+                    Toolbox::showAlert("Tous les champs sont obligatoires pour publier un post", Toolbox::COULEUR_ROUGE);
+                    header("Location:nouveau-post");
+                }
+            } else {
+                Toolbox::showAlert("Vous n'êtes pas autorisé à faire ceci", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } 
+        break;
+
+        case "validation_supprimer_post":
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+                $mainController->deletePost($id);
+            } else {
+                Toolbox::showAlert("Vous n'êtes pas autorisé à faire ceci", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } 
+        break;
+
+        case "commentaires" :
+            $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $mainController->commentsPage($id);
             } else {
                 Toolbox::showAlert("Vous n'êtes pas autorisé à entrer ici", Toolbox::COULEUR_ROUGE);
                 header("Location:accueil");
             } 
+        break;
+
+        case "validation_NO_commentaire" :
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+                $mainController->deleteComment($id);
+            } else {
+                Toolbox::showAlert("Vous n'êtes pas autorisé à faire ceci", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } 
+        break;
+
+        case "validation_OK_commentaire" :
+            if($admin == 1 && $validate == 1 && $visitor == 1){
+                $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+                $mainController->confirmComment($id);
+            } else {
+                Toolbox::showAlert("Vous n'êtes pas autorisé à faire ceci", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            } 
+        break;
+
+        case "validation_nouveau_commentaire" :
+            if($validate == 1 && $visitor == 1){
+                if(!empty($_POST['comment'])){
+                    $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+                    $comment = Security::secureHTML($_POST['comment']);
+                    $mainController->createComment($id, $comment);
+                } else {
+                    Toolbox::showAlert("Il faut... euh... un commentaire, pour publier... un commentaire", Toolbox::COULEUR_ROUGE);
+                    header("Location:posts");
+                }
+            } else {
+                Toolbox::showAlert("Vous n'êtes pas autorisé à faire ceci", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            }
         break;
 
         case "article" :

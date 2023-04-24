@@ -3,7 +3,7 @@ require_once('./views/common/headerPosts.php');
 ?>
 
 <div class="bg-light">
-    <div class="container my-4">
+    <div class="container py-4">
         <?php $datas = array_reverse($datas);
         foreach ($datas as $ligne) : ?>
             <div class="card mb-3">
