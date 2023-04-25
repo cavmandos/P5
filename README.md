@@ -3,8 +3,8 @@
 ### Description du Projet 5
 Le projet est de développer son blog professionnel. Ce site web se décompose en deux grands groupes de pages :
 
-- les pages utiles à tous les visiteurs ;
-- les pages permettant d’administrer votre blog ;
+1.les pages utiles à tous les visiteurs ;
+2.les pages permettant d’administrer votre blog ;
 
 Voici la liste des pages qui devront être accessibles depuis votre site web :
 

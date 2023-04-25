@@ -1,6 +1,6 @@
 <?php
 
-require_once('./app/models/ModelClass.php');
+require_once './app/models/ModelClass.php';
 
 class MainManager extends Model {
     public function getDatas(){
