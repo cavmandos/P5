@@ -28,26 +28,31 @@
             </div>
             <div class="col-lg-6 col-12 border rounded p-5 bg-white mt-4 mt-lg-0">
                 <h3>Contactez-moi</h3>
-                <form id="create-account">
+                <form id="create-account" method="POST" action="validation_formulaire">
                     <div class="form-floating">
-                        <input class="form-control" id="firstname" type="text" placeholder="Entrez votre prénom..." required />
+                        <input class="form-control" id="firstname" type="text" name="firstname" placeholder="Entrez votre prénom..." required />
                         <label for="firstname">Prénom</label>
                     </div>
                     <div class="form-floating">
-                        <input class="form-control" id="lastname" type="text" placeholder="Entrez votre nom..." required />
+                        <input class="form-control" id="lastname" type="text" name="lastname" placeholder="Entrez votre nom..." required />
                         <label for="lastname">Nom</label>
                     </div>
                     <div class="form-floating">
-                        <input class="form-control" id="email" type="email" placeholder="Entrez votre adresse email..." required />
+                        <input class="form-control" id="email" type="email" name="email" placeholder="Entrez votre adresse email..." required />
                         <label for="email">Adresse email</label>
                     </div>
                     <div class="form-floating">
-                        <textarea class="form-control" id="subject" placeholder="Ecrire sa demande" style="height:200px" required></textarea>
+                        <textarea class="form-control" id="subject" name="subject" placeholder="Ecrire sa demande" style="height:200px" required></textarea>
                         <label for="email">Votre demande</label>
+                    </div>
+                    <div class="mt-4">
+                        <img src="./app/models/Captcha.php" onclick="this.src='./app/models/Captcha.php?' + Math.random();" alt="captcha" style="cursor:pointer;">
+                        <input type="text" id="captcha" name="captcha" required/>
                     </div>
                     <br />
                     <button class="btn btn-secondary text-uppercase rounded" id="submitButton" type="submit">Envoyer</button>
                 </form>
+
             </div>
         </div>
     </div>

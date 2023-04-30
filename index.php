@@ -195,6 +195,27 @@ try {
             }
         break;
 
+        case "validation_formulaire" :
+            if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['subject']) && !empty($_POST['captcha'])) {
+                if(isset($_POST['captcha'])){
+                    if($_POST['captcha']==$_SESSION['code']){
+                        $firstname = Security::secureHTML($_POST['firstname']);
+                        $lastname = Security::secureHTML($_POST['lastname']);
+                        $email = Security::secureHTML($_POST['email']);
+                        $subject = Security::secureHTML($_POST['subject']);
+                        echo $firstname, $lastname, $email, $subject;
+                        $mainController->sendEmail($firstname, $lastname, $email, $subject);
+                    } else {
+                        Toolbox::showAlert("Votre code pour valider le formulaire est erroné", Toolbox::COULEUR_ROUGE);
+                        header("Location:accueil");
+                    }
+                }
+            } else {
+                Toolbox::showAlert("Tous les champs sont obligatoires pour nous transmettre un message", Toolbox::COULEUR_ROUGE);
+                header("Location:accueil");
+            }
+        break;
+
         case "deconnexion" :
             $mainController->logoutPage();
         break;

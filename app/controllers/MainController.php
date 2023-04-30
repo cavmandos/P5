@@ -48,7 +48,7 @@ class MainController {
 
     //ACCOUNT PAGE
     public function accountPage(){
-        $email = $_SESSION['login']['email'];
+        $email = htmlspecialchars($_SESSION['login']['email']);
         $datas = $this->mainManager->getUser($email);
         $data_page = [
             "page_description" => "Page de connexion ou de création de compte",
@@ -157,8 +157,8 @@ class MainController {
     //SESSION
     public function validateSession(){
         if(isset($_SESSION['login']['email'])){
-            $email = $_SESSION['login']['email'];
-            $token1 = $_SESSION['login']['token'];
+            $email = htmlspecialchars($_SESSION['login']['email']);
+            $token1 = htmlspecialchars($_SESSION['login']['token']);
             $token2 = $this->mainManager->verifyToken($email);
             if($token1===$token2){
                 return 1;
@@ -172,14 +172,14 @@ class MainController {
 
     //ADMIN CHECK
     public function checkAdmin(){
-        $email = $_SESSION['login']['email'];
+        $email = htmlspecialchars($_SESSION['login']['email']);
         $res = $this->mainManager->isAdmin($email);
         return $res;
     }
 
     //LOGOUT
     public function logoutPage(){
-        $email = $_SESSION['login']['email'];
+        $email = htmlspecialchars($_SESSION['login']['email']);
         $this->mainManager->removeTokenDB($email);
         Toolbox::showAlert("Vous êtes maintenant déconnecté", Toolbox::COULEUR_VERTE);
         header('Location:compte');
@@ -233,7 +233,7 @@ class MainController {
 
     //CREATE POST
     public function createPost($title, $summary, $content){
-        $email =  $_SESSION['login']['email'];
+        $email = htmlspecialchars($_SESSION['login']['email']);
         $user = $this->mainManager->getIdUser($email);
         $user = $user[0]['id_user'];
         if($this->mainManager->createPostDB($title, $summary, $content, $user)){
@@ -269,7 +269,7 @@ class MainController {
 
     //CREATE COMMENT
     public function createComment($id, $comment){
-        $email =  $_SESSION['login']['email'];
+        $email = htmlspecialchars($_SESSION['login']['email']);
         $user = $this->mainManager->getIdUser($email);
         $user = $user[0]['id_user'];
         if($this->mainManager->createCommentDB($id, $comment, $user)){
@@ -296,10 +296,33 @@ class MainController {
     public function confirmComment($id){
         if($this->mainManager->confirmCommentDB($id)){
             Toolbox::showAlert("Le commentaire a bien été validé ! ", Toolbox::COULEUR_VERTE);
-            header("Location:comments");
+            header("Location:posts");
         } else {
             Toolbox::showAlert("Erreur lors de la confirmation du commentaire", Toolbox::COULEUR_ORANGE);
             header("Location:modification-post&id=".$id."");
         };
+    }
+
+    //SEND EMAIL
+    public function sendEmail($firstname, $lastname, $email, $subject) {
+        $to = "adresse@mail.com";
+        $from = $email;
+        $first_name = $firstname;
+        $last_name = $lastname;
+        $title = "BlogFL - Message du formulaire";
+        $title2 = "BlogFL - Copie de votre envoi via notre formulaire";
+        $message = $first_name . " " . $last_name . " a écrit ceci :" . "\n\n" . $subject;
+        $message2 = "Voici une copie de votre message " . $first_name . "\n\n" . $subject;
+
+        $headers = "From:" . $from;
+        $headers2 = "From:" . $to;
+        if(mail($to,$title,$message,$headers)){
+            mail($from,$title2,$message2,$headers2);
+            Toolbox::showAlert("Votre message a bien été envoyé !", Toolbox::COULEUR_VERTE);
+            header("Location:accueil");
+        } else {
+            Toolbox::showAlert("Il y a eu un problème lors de l'envoi de votre message", Toolbox::COULEUR_ROUGE);
+            header("Location:accueil");
+        }
     }
 }
