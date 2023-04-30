@@ -19,13 +19,13 @@ require_once('./views/common/headerAdmin.php');
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                        <h2 class="card-title"><?= $ligne['title'] ?></h2>
-                        <a href="modifier-post&amp;id=<?= $ligne['id_post'] ?>" class="btn btn-warning rounded-2 p-2">Modifier / Supprimer</a>
+                        <h2 class="card-title"><?= htmlspecialchars($ligne['title'])  ?></h2>
+                        <a href="modifier-post&amp;id=<?= htmlspecialchars($ligne['id_post']) ?>" class="btn btn-warning rounded-2 p-2">Modifier / Supprimer</a>
                     </div>
-                    <p class="card-text"><?= $ligne['summary'] ?></p>
+                    <p class="card-text"><?= htmlspecialchars($ligne['summary']) ?></p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p>Par <?= $ligne['username'] ?> le <?= $ligne['creation_date'] ?></p>
-                        <a href="article&amp;id=<?= $ligne['id_post'] ?>" class="btn btn-secondary rounded">Lire l'article</a>
+                        <p>Par <?= htmlspecialchars($ligne['username']) ?> le <?= htmlspecialchars($ligne['creation_date']) ?></p>
+                        <a href="article&amp;id=<?= htmlspecialchars($ligne['id_post']) ?>" class="btn btn-secondary rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>
