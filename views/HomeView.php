@@ -7,11 +7,11 @@
         foreach(array_reverse($datas) as $ligne) : ?>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h2 class="card-title"><?= htmlspecialchars($ligne['title']) ?></h2>
-                    <p class="card-text"><?= htmlspecialchars($ligne['summary']) ?></p>
+                    <h2 class="card-title"><?= htmlentities($ligne['title']) ?></h2>
+                    <p class="card-text"><?= htmlentities($ligne['summary']) ?></p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p>Par <?= htmlspecialchars($ligne['username']) ?> le <?= htmlspecialchars($ligne['creation_date']) ?></p>
-                        <a href="article&amp;id=<?= htmlspecialchars($ligne['id_post']) ?>" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
+                        <p>Par <?= htmlentities($ligne['username']) ?> le <?= htmlentities($ligne['creation_date']) ?></p>
+                        <a href="article&amp;id=<?= htmlentities($ligne['id_post']) ?>" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>
