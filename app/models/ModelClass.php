@@ -10,7 +10,6 @@ abstract class Model {
         } catch (Exception $e) {
             print_r($e);
         }
-        
     }
 
     protected function getBdd(){

@@ -1,5 +1,6 @@
 <?php
 require_once('./views/common/headerSinglePost.php');
+$date = date("d.m.Y", strtotime($datas[0]['creation_date']));
 ?>
 
 <div class="bg-light">
@@ -8,7 +9,7 @@ require_once('./views/common/headerSinglePost.php');
             <div class="card-body">
                 <h2 class="card-title text-center"><?= $datas[0]['title'] ?></h2>
                 <div class="d-flex align-items-center justify-content-center">
-                    <p>Par <?= $datas[0]['username'] ?> le <?= $datas[0]['creation_date'] ?></p>
+                    <p class="text-secondary mt-0">Par <?= $datas[0]['username'] ?> le <?= $date ?></p>
                 </div>
                 <p class="card-text h4"><?= $datas[0]['summary'] ?></p>
                 <p class="card-text"><?= $datas[0]['content'] ?></p>
@@ -16,12 +17,14 @@ require_once('./views/common/headerSinglePost.php');
         </div>
     </div>
     <?php $comments = array_reverse($comments);
-    foreach ($comments as $ligne) : ?>
+    foreach ($comments as $ligne) :
+    $date2 = date("d.m.Y", strtotime($ligne['creation_date']));
+    ?>
         <div class="container d-flex justify-content-end py-2 px-2">
             <div class="col-12 col-md-10 card mb-2">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-end">
-                        <p class="bg-secondary rounded p-2 text-light m-2">Par <?= $ligne['username'] ?> le <?= $ligne['creation_date'] ?></p>
+                        <p class="bg-secondary rounded p-2 text-light m-2">Par <?= $ligne['username'] ?> le <?= $date2 ?></p>
                     </div>
                     <div class="d-flex align-items-center justify-content-end">
                         <p class="m-2"><?= $ligne['comment_content'] ?></p>

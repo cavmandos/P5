@@ -6,11 +6,12 @@ require_once './app/controllers/MainController.php';
 require_once './app/controllers/SecureClass.php';
 $mainController = new MainController();
 
-//SECURITY FONCTIONS
+//Security checks
 $validate = $mainController->validateSession();
 $admin = $mainController->checkAdmin();
 $visitor = Security::isAllowed();
 
+//Router
 try {
     if(empty($_GET['page'])){
         $page = "accueil";
@@ -225,4 +226,5 @@ try {
     
 } catch (Exception $e) {
     $error = $e->getMessage();
+    print_r($error);
 }

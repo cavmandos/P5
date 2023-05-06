@@ -2,7 +2,7 @@
 
 class Security {
     public static function secureHTML($element){
-        return htmlentities($element);
+        return htmlspecialchars($element, ENT_NOQUOTES);
     }
     public static function isAllowed(){
         if(!empty($_SESSION['login'])){
