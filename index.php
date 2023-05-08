@@ -5,8 +5,6 @@ session_start();
 require_once './app/controllers/MainController.php';
 require_once './app/controllers/SecureClass.php';
 $mainController = new MainController();
-
-//TEST
 require_once './sendemail.php';
 
 //Security checks
