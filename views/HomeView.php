@@ -4,13 +4,13 @@
     <div class="container py-4">
         <!-- Display only 3 lasts posts -->
         <?php $datas = array_slice($datas, -3);
-        foreach(array_reverse($datas) as $ligne) :
-        $date = htmlspecialchars($ligne['creation_date'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $date = date("d.m.Y", strtotime($date));
-        $title = htmlspecialchars($ligne['title'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $summary = htmlspecialchars($ligne['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $username = htmlspecialchars($ligne['username'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $id = htmlspecialchars($ligne['id_post'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        foreach (array_reverse($datas) as $ligne) :
+            $date = htmlspecialchars($ligne['creation_date'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $date = date("d.m.Y", strtotime($date));
+            $title = htmlspecialchars($ligne['title'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $summary = htmlspecialchars($ligne['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $username = htmlspecialchars($ligne['username'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $id = htmlspecialchars($ligne['id_post'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
         ?>
             <div class="card mb-3">
                 <div class="card-body">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="mt-4">
                         <img src="./app/models/Captcha.php" onclick="this.src='./app/models/Captcha.php?' + Math.random();" alt="captcha" style="cursor:pointer;">
-                        <input type="text" id="captcha" name="captcha" required/>
+                        <input type="text" id="captcha" name="captcha" required />
                     </div>
                     <br />
                     <button class="btn btn-secondary text-uppercase rounded" id="submitButton" type="submit">Envoyer</button>

@@ -6,6 +6,9 @@ require_once './app/controllers/MainController.php';
 require_once './app/controllers/SecureClass.php';
 $mainController = new MainController();
 
+//TEST
+require_once './sendemail.php';
+
 //Security checks
 $validate = $mainController->validateSession();
 $admin = $mainController->checkAdmin();
@@ -204,8 +207,7 @@ try {
                         $lastname = Security::secureHTML($_POST['lastname']);
                         $email = Security::secureHTML($_POST['email']);
                         $subject = Security::secureHTML($_POST['subject']);
-                        echo $firstname, $lastname, $email, $subject;
-                        $mainController->sendEmail($firstname, $lastname, $email, $subject);
+                        SendEmail($firstname, $lastname, $email, $subject);
                     } else {
                         Toolbox::showAlert("Votre code pour valider le formulaire est erroné", Toolbox::COULEUR_ROUGE);
                         header("Location:accueil");

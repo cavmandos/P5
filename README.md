@@ -1,4 +1,5 @@
 # P5 OC - Créer son blog en PHP
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c45486539ee243ef993ae7c6ce2f6491)](https://app.codacy.com/gh/cavmandos/P5/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ### Description du Projet 5
 Le projet est de développer son blog professionnel. Ce site web se décompose en deux grands groupes de pages :

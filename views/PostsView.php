@@ -5,9 +5,9 @@ require_once('./views/common/headerPosts.php');
 <div class="bg-light">
     <div class="container py-4">
         <?php $datas = array_reverse($datas);
-        foreach ($datas as $ligne):
-        $date = htmlspecialchars($ligne['creation_date'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $date = date("d.m.Y", strtotime($date));
+        foreach ($datas as $ligne) :
+            $date = htmlspecialchars($ligne['creation_date'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $date = date("d.m.Y", strtotime($date));
         ?>
             <div class="card mb-3">
                 <div class="card-body">

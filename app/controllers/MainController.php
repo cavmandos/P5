@@ -302,27 +302,4 @@ class MainController {
             header("Location:modification-post&id=".$id."");
         };
     }
-
-    //Send an email
-    public function sendEmail($firstname, $lastname, $email, $subject) {
-        $to = "adresse@mail.com";
-        $from = $email;
-        $first_name = $firstname;
-        $last_name = $lastname;
-        $title = "BlogFL - Message du formulaire";
-        $title2 = "BlogFL - Copie de votre envoi via notre formulaire";
-        $message = $first_name . " " . $last_name . " a écrit ceci :" . "\n\n" . $subject;
-        $message2 = "Voici une copie de votre message " . $first_name . "\n\n" . $subject;
-
-        $headers = "From:" . $from;
-        $headers2 = "From:" . $to;
-        if(mail($to,$title,$message,$headers)){
-            mail($from,$title2,$message2,$headers2);
-            Toolbox::showAlert("Votre message a bien été envoyé !", Toolbox::COULEUR_VERTE);
-            header("Location:accueil");
-        } else {
-            Toolbox::showAlert("Il y a eu un problème lors de l'envoi de votre message", Toolbox::COULEUR_ROUGE);
-            header("Location:accueil");
-        }
-    }
 }
