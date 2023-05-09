@@ -7,12 +7,12 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     <div class="container py-4 px-2">
         <div class="card mb-3">
             <div class="card-body">
-                <h2 class="card-title text-center"><?= $datas[0]['title'] ?></h2>
+                <h2 class="card-title text-center"><?php Security::escapeOutput($datas[0]['title']) ?></h2>
                 <div class="d-flex align-items-center justify-content-center">
-                    <p class="text-secondary mt-0">Par <?= $datas[0]['username'] ?> le <?= $date ?></p>
+                    <p class="text-secondary mt-0">Par <?php Security::escapeOutput($datas[0]['username']) ?> le <?php Security::escapeOutput($date) ?></p>
                 </div>
-                <p class="card-text h4"><?= $datas[0]['summary'] ?></p>
-                <p class="card-text"><?= $datas[0]['content'] ?></p>
+                <p class="card-text h4"><?php Security::escapeOutput($datas[0]['summary']) ?></p>
+                <p class="card-text"><?php Security::escapeOutput($datas[0]['content']) ?></p>
             </div>
         </div>
     </div>
@@ -24,10 +24,10 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
             <div class="col-12 col-md-10 card mb-2">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-end">
-                        <p class="bg-secondary rounded p-2 text-light m-2">Par <?= $ligne['username'] ?> le <?= $date2 ?></p>
+                        <p class="bg-secondary rounded p-2 text-light m-2">Par <?php Security::escapeOutput($ligne['username']) ?> le <?php Security::escapeOutput($date2) ?></p>
                     </div>
                     <div class="d-flex align-items-center justify-content-end">
-                        <p class="m-2"><?= $ligne['comment_content'] ?></p>
+                        <p class="m-2"><?php Security::escapeOutput($ligne['comment_content']) ?></p>
                     </div>
                 </div>
             </div>

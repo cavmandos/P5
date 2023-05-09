@@ -17,4 +17,9 @@ class Security {
     $randomString = substr($string, 0, $length);
     return $randomString;
     }
+
+    public static function escapeOutput($data){
+        $response = htmlspecialchars($data, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        echo $response;
+    }
 }

@@ -5,20 +5,15 @@
         <!-- Display only 3 lasts posts -->
         <?php $datas = array_slice($datas, -3);
         foreach (array_reverse($datas) as $ligne) :
-            $date = htmlspecialchars($ligne['creation_date'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            $date = date("d.m.Y", strtotime($date));
-            $title = htmlspecialchars($ligne['title'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            $summary = htmlspecialchars($ligne['summary'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            $username = htmlspecialchars($ligne['username'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            $id = htmlspecialchars($ligne['id_post'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            $date = date("d.m.Y", strtotime($ligne['creation_date']));
         ?>
             <div class="card mb-3">
                 <div class="card-body">
-                    <h2 class="card-title"><?= $title ?></h2>
-                    <p class="card-text"><?= $summary ?></p>
+                    <h2 class="card-title"><?php Security::escapeOutput($ligne['title']) ?></h2>
+                    <p class="card-text"><?php Security::escapeOutput($ligne['summary']) ?></p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p>Par <?= $username ?> le <?= $date ?></p>
-                        <a href="article&amp;id=<?= $id ?>" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
+                        <p>Par <?php Security::escapeOutput($ligne['username']) ?> le <?php Security::escapeOutput($date) ?></p>
+                        <a href="article&amp;id=<?php Security::escapeOutput($ligne['id_post']) ?>" class="btn btn-secondary stretched-link rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>

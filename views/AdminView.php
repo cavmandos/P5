@@ -19,13 +19,13 @@ require_once('./views/common/headerAdmin.php');
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                        <h2 class="card-title"><?= htmlspecialchars($ligne['title'])  ?></h2>
-                        <a href="modifier-post&amp;id=<?= htmlspecialchars($ligne['id_post']) ?>" class="btn btn-warning rounded-2 p-2">Modifier / Supprimer</a>
+                        <h2 class="card-title"><?php Security::escapeOutput($ligne['title'])  ?></h2>
+                        <a href="modifier-post&amp;id=<?php Security::escapeOutput($ligne['id_post']) ?>" class="btn btn-warning rounded-2 p-2">Modifier / Supprimer</a>
                     </div>
-                    <p class="card-text"><?= htmlspecialchars($ligne['summary']) ?></p>
+                    <p class="card-text"><?php Security::escapeOutput($ligne['summary']) ?></p>
                     <div class="d-flex align-items-center justify-content-between">
-                        <p>Par <?= htmlspecialchars($ligne['username']) ?> le <?= htmlspecialchars($ligne['creation_date']) ?></p>
-                        <a href="article&amp;id=<?= htmlspecialchars($ligne['id_post']) ?>" class="btn btn-secondary rounded">Lire l'article</a>
+                        <p>Par <?php Security::escapeOutput($ligne['username']) ?> le <?php Security::escapeOutput($ligne['creation_date']) ?></p>
+                        <a href="article&amp;id=<?php Security::escapeOutput($ligne['id_post']) ?>" class="btn btn-secondary rounded">Lire l'article</a>
                     </div>
                 </div>
             </div>
