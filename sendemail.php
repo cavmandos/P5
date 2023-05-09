@@ -36,7 +36,6 @@ function SendEmail($firstname, $lastname, $email, $message){
         Toolbox::showAlert("Votre message a bien été envoyé !", Toolbox::COULEUR_VERTE);
         header("Location:accueil");
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         Toolbox::showAlert("Erreur de l'envoi de votre message", Toolbox::COULEUR_ROUGE);
         header("Location:accueil");
     }

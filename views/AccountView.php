@@ -27,12 +27,14 @@ if(!isset($_SESSION['login'])){
         </div>
     </div>';
 } else {
+    $firstname = Security::secureHTML($datas[0]["first_name"]);
+    $email = Security::secureHTML($datas[0]["email"]);
     echo '<div class="bg-light">
     <div class="container py-4">
-        <h2 class="text-center">Bonjour '.htmlspecialchars($datas[0]["first_name"], ENT_QUOTES | ENT_HTML5, 'UTF-8').'</h2>
+        <h2 class="text-center">Bonjour '.$firstname.'</h2>
 
         <div id="mail" class="d-flex justify-content-center align-items-center">
-        <p class="text-center my-3 mx-2">Votre email : '.htmlspecialchars($datas[0]["email"], ENT_QUOTES | ENT_HTML5, 'UTF-8').'</p>
+        <p class="text-center my-3 mx-2">Votre email : '.$email.'</p>
             <button class="btn btn-primary rounded px-3" id="btnUpdateMail">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -46,7 +48,7 @@ if(!isset($_SESSION['login'])){
                 <div class="row justify-content-center align-items-center">
                     <label for="email" class="col-2 col-form-label">Modifier :</label>
                     <div class="col-5">
-                        <input type="email" class="form-control" name="email" value="'.htmlspecialchars($datas[0]["email"], ENT_QUOTES | ENT_HTML5, 'UTF-8').'" />
+                        <input type="email" class="form-control" name="email" value="'.$email.'" />
                     </div>
                     <div class="col-2">
                         <button class="btn btn-success rounded px-3" id="btnConfirmUpdate" type="submit">

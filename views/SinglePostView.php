@@ -35,8 +35,9 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     <?php endforeach; ?>
 
     <?php if(isset($_SESSION['login'])){
+        $idPost = Security::secureHTML($datas[0]["id_post"]);
         echo '<div class="container py-4">
-        <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id='.$datas[0]["id_post"].'">
+        <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id='.$idPost.'">
         <!-- Comment -->
         <div class="form-outline mb-4">
             <label class="form-label" for="comment">Votre commentaire</label>

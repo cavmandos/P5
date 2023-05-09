@@ -10,13 +10,13 @@ require_once('./views/common/headerComments.php');
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center justify-content-center">
-                            <a href="validation_OK_commentaire&amp;id=<?= $ligne["id_comment"] ?>" class="btn btn-success btn-block mx-2">Valider</a>
-                            <a href="validation_NO_commentaire&amp;id=<?= $ligne["id_comment"] ?>" class="btn btn-secondary btn-block">Supprimer</a>
+                            <a href="validation_OK_commentaire&amp;id=<?php Security::escapeOutput($ligne["id_comment"]) ?>" class="btn btn-success btn-block mx-2">Valider</a>
+                            <a href="validation_NO_commentaire&amp;id=<?php Security::escapeOutput($ligne["id_comment"]) ?>" class="btn btn-secondary btn-block">Supprimer</a>
                         </div>
                         <div class="px-3 d-flex flex-column align-items-end">
-                            <p class="bg-secondary rounded p-2 text-light m-2">Par <?= $ligne['username'] ?> le <?= $ligne['creation_date'] ?></p>
+                            <p class="bg-secondary rounded p-2 text-light m-2">Par <?php Security::escapeOutput($ligne['username']) ?> le <?php Security::escapeOutput($ligne['creation_date']) ?></p>
                             <div class="d-flex align-items-center justify-content-end">
-                            <p class="m-2"><?= $ligne['comment_content'] ?></p>
+                            <p class="m-2"><?php Security::escapeOutput($ligne['comment_content']) ?></p>
                         </div>
                     </div>
                     </div>
