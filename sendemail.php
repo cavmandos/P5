@@ -1,7 +1,7 @@
 <?php
 
-//$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-//$dotenv->load();
+//Use PHPMailer
+include('./config.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -16,14 +16,14 @@ function SendEmail($firstname, $lastname, $email, $message){
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;          
-        $mail->Username   = $_ENV['EMAIL'];
-        $mail->Password   = $_ENV['PASSWORD'];
+        $mail->Username   = EMAIL;
+        $mail->Password   = PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
     
         //Recipients
         $mail->setFrom($email, $firstname." ".$lastname);
-        $mail->addAddress($_ENV['EMAIL']);
+        $mail->addAddress(EMAIL);
         $mail->addAddress($email);
     
         //Content
