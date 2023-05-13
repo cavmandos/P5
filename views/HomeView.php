@@ -1,4 +1,4 @@
-<?php require_once('./views/common/header.php'); ?>
+<?php require_once './views/common/header.php'; ?>
 
 <div class="bg-light">
     <div class="container py-4">

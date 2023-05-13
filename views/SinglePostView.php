@@ -1,5 +1,5 @@
 <?php
-require_once('./views/common/headerSinglePost.php');
+require_once './views/common/headerSinglePost.php';
 $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
 ?>
 

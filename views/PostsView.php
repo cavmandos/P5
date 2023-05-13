@@ -1,5 +1,5 @@
 <?php
-require_once('./views/common/headerPosts.php');
+require_once './views/common/headerPosts.php';
 ?>
 
 <div class="bg-light">
