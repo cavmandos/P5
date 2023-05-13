@@ -11,4 +11,5 @@
 </header>
 
 <!-- ALERTS -->
-<?php Security::getAlerts() ?>
+<?php
+Security::getAlerts();
