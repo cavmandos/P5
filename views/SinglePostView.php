@@ -36,7 +36,7 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
 
     <?php if(isset($_SESSION['login'])){
         $idPost = Security::secureHTML($datas[0]["id_post"]);
-        echo '<div class="container py-4">
+        Security::display('<div class="container py-4">
         <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id='.$idPost.'">
         <!-- Comment -->
         <div class="form-outline mb-4">
@@ -46,7 +46,7 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
         <!-- Submit button -->
         <button type="submit" class="btn btn-secondary btn-block mb-4">Commenter</button>
         </form>
-    </div>';
+    </div>');
     }
     
   ?>

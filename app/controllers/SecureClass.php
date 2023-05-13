@@ -33,4 +33,8 @@ class Security {
             unset($_SESSION['alert']);
         }
     }
+
+    public static function display($data){
+        echo $data;
+    }
 }

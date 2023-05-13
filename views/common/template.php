@@ -19,7 +19,7 @@
     <?php require_once('./views/common/menu.php'); ?>
 
     <!-- PAGE -->
-    <?= $page_content; ?>
+    <?php Security::display($page_content); ?>
 
     <!-- FOOTER -->
     <?php require_once('./views/common/footer.php') ?>

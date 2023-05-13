@@ -29,7 +29,7 @@ if(!isset($_SESSION['login'])){
 } else {
     $firstname = Security::secureHTML($datas[0]["first_name"]);
     $email = Security::secureHTML($datas[0]["email"]);
-    echo '<div class="bg-light">
+    Security::display('<div class="bg-light">
     <div class="container py-4">
         <h2 class="text-center">Bonjour '.$firstname.'</h2>
 
@@ -73,7 +73,7 @@ if(!isset($_SESSION['login'])){
             </div>
         </div>
 
-        <p class="text-center my-2">Votre statut : '; if($datas[0]["is_admin"] == 1){ echo "administrateur";} else { echo "inscrit";}; echo '</p>
+        <p class="text-center my-2">Votre statut : '); if($datas[0]["is_admin"] == 1){ echo "administrateur";} else { echo "inscrit";}; echo '</p>
         <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="deconnexion">Se déconnecter</a></p>
     </div>
     </div>';

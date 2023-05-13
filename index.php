@@ -17,7 +17,8 @@ try {
     if(empty($_GET['page'])){
         $page = "accueil";
     } else {
-        $url = explode('/', filter_var($_GET['page']), FILTER_SANITIZE_URL);
+        $get = stripslashes($_GET['page']);
+        $url = explode('/', filter_var($get), FILTER_SANITIZE_URL);
         $page = $url[0];
     }
     
@@ -49,8 +50,10 @@ try {
 
         case "validation_nouveau_compte":
             if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['username']) && !empty($_POST['confirm-password'])){
-                $email = Security::secureHTML($_POST['email']);
-                $password = Security::secureHTML($_POST['password']);
+                $email = stripslashes($_POST['email']);
+                $email = Security::secureHTML($email);
+                $password = stripslashes($_POST['password']);
+                $password = Security::secureHTML($password);
                 $firstname = Security::secureHTML($_POST['firstname']);
                 $lastname = Security::secureHTML($_POST['lastname']);
                 $username = Security::secureHTML($_POST['username']);
