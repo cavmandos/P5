@@ -7,7 +7,7 @@ require_once('./views/common/headerAdmin.php');
         <!-- New Post -->
         <div class="card mb-5">
             <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                     <p>Envie d'impressionner la galerie ?</p>
                     <a href="nouveau-post" class="btn btn-secondary rounded">Créer un post</a>
                 </div>
@@ -23,7 +23,7 @@ require_once('./views/common/headerAdmin.php');
                         <a href="modifier-post&amp;id=<?php Security::escapeOutput($ligne['id_post']) ?>" class="btn btn-warning rounded-2 p-2">Modifier / Supprimer</a>
                     </div>
                     <p class="card-text"><?php Security::escapeOutput($ligne['summary']) ?></p>
-                    <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                         <p>Par <?php Security::escapeOutput($ligne['username']) ?> le <?php Security::escapeOutput($ligne['creation_date']) ?></p>
                         <a href="article&amp;id=<?php Security::escapeOutput($ligne['id_post']) ?>" class="btn btn-secondary rounded">Lire l'article</a>
                     </div>

@@ -25,7 +25,7 @@ require_once('./views/common/headerUpdatePostView.php');
       </div>
 
       <!-- Buttons -->
-      <div class="d-flex justify-content-around">
+      <div class="d-flex flex-column flex-md-row justify-content-around">
         <button type="submit" class="btn btn-secondary btn-block mb-4">Modifier</button>
         <a href="validation_supprimer_post&amp;id=<?php Security::escapeOutput($datas[0]["id_post"]) ?>" class="btn btn-secondary btn-block mb-4">Supprimer</a>
         <a href="commentaires&amp;id=<?php Security::escapeOutput($datas[0]["id_post"]) ?>" class="btn btn-warning btn-block mb-4">Commentaires</a>

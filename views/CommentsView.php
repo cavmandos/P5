@@ -8,9 +8,9 @@ require_once('./views/common/headerComments.php');
         <div class="container d-flex justify-content-end py-2 px-2">
             <div class="col-12 card mb-2">
                 <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="validation_OK_commentaire&amp;id=<?php Security::escapeOutput($ligne["id_comment"]) ?>" class="btn btn-success btn-block mx-2">Valider</a>
+                    <div class="d-flex flex-column-reverse flex-md-row align-items-center justify-content-between">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                            <a href="validation_OK_commentaire&amp;id=<?php Security::escapeOutput($ligne["id_comment"]) ?>" class="btn btn-success btn-block mx-2 mb-3 mb-md-0">Valider</a>
                             <a href="validation_NO_commentaire&amp;id=<?php Security::escapeOutput($ligne["id_comment"]) ?>" class="btn btn-secondary btn-block">Supprimer</a>
                         </div>
                         <div class="px-3 d-flex flex-column align-items-end">
