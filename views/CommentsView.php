@@ -25,8 +25,8 @@ require_once './views/common/headerComments.php';
         </div>
     <?php endforeach; ?>
     <?php
-        if(empty($comments)){
-            Security::display("<p class='text-center'>Il n'y a aucun commentaire en attente d'approbation</p>");
-        }
+    if (empty($comments) === TRUE){
+        Security::display("<p class='text-center'>Il n'y a aucun commentaire en attente d'approbation</p>");
+    }
     ?>
 </div>
