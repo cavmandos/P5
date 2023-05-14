@@ -1,18 +1,20 @@
 <?php
 
-//Use PHPMailer
-include('./config.php');
+// PHPMailer
+include './config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
 require 'vendor/autoload.php';
 
-function SendEmail($firstname, $lastname, $email, $message){
+
+function SendEmail($firstname, $lastname, $email, $message)
+{
     try {
         $mail = new PHPMailer(true);
-        //Server settings
-        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        // Server settings
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;          
@@ -20,18 +22,15 @@ function SendEmail($firstname, $lastname, $email, $message){
         $mail->Password   = PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
-    
-        //Recipients
+        // Recipients
         $mail->setFrom($email, $firstname." ".$lastname);
         $mail->addAddress(EMAIL);
         $mail->addAddress($email);
-    
-        //Content
+        // Content
         $mail->isHTML(true);
         $mail->Subject = 'Message du formulaire BlogFL';
         $mail->Body = $message;
-    
-        //Send email
+        // Send email
         $mail->send();
         Toolbox::showAlert("Votre message a bien été envoyé !", Toolbox::COULEUR_VERTE);
         header("Location:accueil");
@@ -39,4 +38,5 @@ function SendEmail($firstname, $lastname, $email, $message){
         Toolbox::showAlert("Erreur de l'envoi de votre message", Toolbox::COULEUR_ROUGE);
         header("Location:accueil");
     }
-}
+    
+} // End SendEmail()

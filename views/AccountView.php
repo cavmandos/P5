@@ -1,11 +1,10 @@
 <?php
-require_once('./views/common/headerAccount.php');
-?>
 
-<?php
-if(!isset($_SESSION['login'])){
-    echo 
-    '<div class="loginForm">
+require_once './views/common/headerAccount.php';
+$login = $_SESSION['login'];
+
+if (isset($login) === FALSE) {
+    Security::display('<div class="loginForm">
         <form method="POST" action="validation_login" class="form-signin">
             <div class="d-flex align-items-center mb-3">
                 <img class="mx-2" src="./public/assets/img/Logo2.png" alt="Logo du blog" width="30" height="30">
@@ -25,16 +24,15 @@ if(!isset($_SESSION['login'])){
             <h2 class="h3 mb-0 font-weight-normal mx-3">Je n\'ai pas encore de compte</h2>
             <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="nouvel-utilisateur">Créer un compte</a></p>
         </div>
-    </div>';
+    </div>');
 } else {
     $firstname = Security::secureHTML($datas[0]["first_name"]);
     $email = Security::secureHTML($datas[0]["email"]);
     Security::display('<div class="bg-light">
     <div class="container py-4">
-        <h2 class="text-center">Bonjour '.$firstname.'</h2>
-
+        <h2 class="text-center">Bonjour ' . $firstname . '</h2>
         <div id="mail" class="d-flex justify-content-center align-items-center">
-        <p class="text-center my-3 mx-2">Votre email : '.$email.'</p>
+        <p class="text-center my-3 mx-2">Votre email : ' . $email . '</p>
             <button class="btn btn-primary rounded px-3" id="btnUpdateMail">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -42,13 +40,12 @@ if(!isset($_SESSION['login'])){
                 </svg>
             </button>
         </div>
-
         <div id="updateMail" class="d-none">
             <form method="POST" action="validation_modification_mail">
                 <div class="row justify-content-center align-items-center">
                     <label for="email" class="col-2 col-form-label">Modifier :</label>
                     <div class="col-5">
-                        <input type="email" class="form-control" name="email" value="'.$email.'" />
+                        <input type="email" class="form-control" name="email" value="' . $email . '" />
                     </div>
                     <div class="col-2">
                         <button class="btn btn-success rounded px-3" id="btnConfirmUpdate" type="submit">
@@ -61,21 +58,23 @@ if(!isset($_SESSION['login'])){
                 </div>
             </form>
         </div>
-
         <div class="d-flex justify-content-center">
             <button id="btnDeleteAccount" class="btn btn-danger">Supprimer son compte</button>
         </div>
-
         <div id="deleteAccount" class="d-none my-2">
             <div class="alert alert-danger d-flex flex-column justify-content-center align-items-center">
                 <p class="my-1">Veuillez confirmez la suppression du compte</p>
                 <a href="suppression_compte" class="btn btn-danger">Je supprime</a>
             </div>
         </div>
-
-        <p class="text-center my-2">Votre statut : '); if($datas[0]["is_admin"] == 1){ echo "administrateur";} else { echo "inscrit";}; echo '</p>
+        <p class="text-center my-2">Votre statut : ');
+    if ($datas[0]["is_admin"] == 1) {
+        Security::display("administrateur");
+    } else {
+        Security::display("inscrit");
+    };
+    Security::display('</p>
         <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="deconnexion">Se déconnecter</a></p>
     </div>
-    </div>';
+    </div>');
 }
-?>
