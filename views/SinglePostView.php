@@ -18,7 +18,7 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     </div>
     <?php $comments = array_reverse($comments);
     foreach ($comments as $ligne) :
-    $date2 = date("d.m.Y", strtotime($ligne['creation_date']));
+        $date2 = date("d.m.Y", strtotime($ligne['creation_date']));
     ?>
         <div class="container d-flex justify-content-end py-2 px-2">
             <div class="col-12 col-md-10 card mb-2">
@@ -34,10 +34,12 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
         </div>
     <?php endforeach; ?>
 
-    <?php if(isset($_SESSION['login'])){
+    <?php
+    $session = $_SESSION['login'];
+    if (isset($session) === TRUE) {
         $idPost = Security::secureHTML($datas[0]["id_post"]);
         Security::display('<div class="container py-4">
-        <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id='.$idPost.'">
+        <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id=' . $idPost . '">
         <!-- Comment -->
         <div class="form-outline mb-4">
             <label class="form-label" for="comment">Votre commentaire</label>
@@ -48,6 +50,5 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
         </form>
     </div>');
     }
-    
-  ?>
+    ?>
 </div>
