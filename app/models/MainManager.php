@@ -2,9 +2,11 @@
 
 require_once './app/models/ModelClass.php';
 
-class MainManager extends Model {
-    //Get posts
-    public function getDatas(){
+class MainManager extends Model
+{
+    // Get posts
+    public function getDatas()
+    {
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT * FROM post INNER JOIN user ON post.user_id = user.id_user");
         $req->execute();
@@ -12,8 +14,9 @@ class MainManager extends Model {
         $req->closeCursor();
         return $datas;
     }
-    //Get a post
-    public function getPost($id){
+    // Get a post
+    public function getPost($id)
+    {
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT * FROM post INNER JOIN user ON post.user_id = user.id_user WHERE id_post = :id");
         $req->bindValue(':id', $id, PDO::PARAM_INT);
@@ -22,8 +25,9 @@ class MainManager extends Model {
         $req->closeCursor();
         return $datas;
     }
-    //Get comments
-    public function getCommentsOK($id){
+    // Get comments
+    public function getCommentsOK($id)
+    {
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT * FROM comment INNER JOIN user ON comment.user_id = user.id_user WHERE post_id = :id AND is_valid = 1");
         $req->bindValue(':id', $id, PDO::PARAM_INT);
@@ -32,8 +36,9 @@ class MainManager extends Model {
         $req->closeCursor();
         return $comments;
     }
-    //Get pending comments
-    public function getCommentsNotOK($id){
+    // Get pending comments
+    public function getCommentsNotOK($id)
+    {
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT * FROM comment INNER JOIN user ON comment.user_id = user.id_user WHERE post_id = :id AND is_valid = 0");
         $req->bindValue(':id', $id, PDO::PARAM_INT);
@@ -42,8 +47,9 @@ class MainManager extends Model {
         $req->closeCursor();
         return $comments;
     }
-    //Update post
-    public function updatePostDB($id, $title, $summary, $content){
+    // Update post
+    public function updatePostDB($id, $title, $summary, $content)
+    {
         $req = "UPDATE post SET title = :title, summary = :summary, content = :content WHERE id_post = :id ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':title', $title, PDO::PARAM_STR);
@@ -55,8 +61,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $isRegistered;
     }
-    //Delete post
-    public function deletePostDB($id){
+    // Delete post
+    public function deletePostDB($id)
+    {
         $req = "DELETE FROM post WHERE id_post = :id";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -65,8 +72,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $isDeleted;
     }
-    //Get user
-    public function getUser($email){
+    // Get user
+    public function getUser($email)
+    {
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT id_user, first_name, last_name, username, email, is_admin FROM user WHERE email = :email");
         $req->bindValue(':email', $email, PDO::PARAM_STR);
@@ -75,8 +83,9 @@ class MainManager extends Model {
         $req->closeCursor();
         return $datas;
     }
-    //Get user password
-    private function getPasswordUser($email){
+    // Get user password
+    private function getPasswordUser($email)
+    {
         $req = "SELECT password FROM user WHERE email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -85,13 +94,15 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $result['password'];
     }
-    //Check email/password
-    public function isCombinationValid($email, $password){
+    // Check email/password
+    public function isCombinationValid($email, $password)
+    {
         $passwordDB = $this->getPasswordUser($email);
         return password_verify($password, $passwordDB);
     }
-    //Check admin status
-    public function isAdmin($email){
+    // Check admin status
+    public function isAdmin($email)
+    {
         $req = "SELECT is_admin FROM user WHERE email = :email ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -100,8 +111,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $result['is_admin'];
     }
-    //Set new token
-    public function setTokenDB($email, $token){
+    // Set new token
+    public function setTokenDB($email, $token)
+    {
         $req = "UPDATE user SET token = :token WHERE email = :email ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -111,8 +123,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $result['token'];
     }
-    //Verify the token
-    public function verifyToken($email){
+    // Verify the token
+    public function verifyToken($email)
+    {
         $req = "SELECT token FROM user WHERE email = :email ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -121,8 +134,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $result['token'];
     }
-    //Remove token
-    public function removeTokenDB($email){
+    // Remove token
+    public function removeTokenDB($email)
+    {
         $req = "UPDATE user SET token = 0 WHERE email = :email ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -130,8 +144,9 @@ class MainManager extends Model {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
     }
-    //Check account availability
-    public function isAccountAvailable($email){
+    // Check account availability
+    public function isAccountAvailable($email)
+    {
         $req = "SELECT * FROM user WHERE email = :email ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -140,8 +155,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return empty($result);
     }
-    //Create a new account
-    public function createAccountDB($email, $passwordHash, $firstname, $lastname, $username){
+    // Create a new account
+    public function createAccountDB($email, $passwordHash, $firstname, $lastname, $username)
+    {
         $datetime = date_create()->format('Y-m-d H:i:s');
         try {
             $req = "INSERT INTO `user` (`id_user`, `first_name`, `last_name`, `username`, `email`, `password`, `user_creation_date`, `is_admin`, `is_online`, `token`) VALUES (NULL, :firstname, :lastname, :username, :email, :password, :datetime, '0', '0', '');";
@@ -156,12 +172,13 @@ class MainManager extends Model {
             $isRegistered = ($stmt->rowCount() > 0);
             $stmt->closeCursor();
             return $isRegistered;
-          } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo $req . "<br>" . $e->getMessage();
-          }
+        }
     }
-    //Update user mail
-    public function updateMailUser($login, $email){
+    // Update user mail
+    public function updateMailUser($login, $email)
+    {
         $req = "UPDATE user SET email = :email WHERE email = :login ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -171,8 +188,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $isRegistered;
     }
-    //Delete account
-    public function deleteUserAccount($email){
+    // Delete account
+    public function deleteUserAccount($email)
+    {
         $req = "DELETE FROM user WHERE email = :email";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
@@ -181,8 +199,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $isRegistered;
     }
-    //Create a post
-    public function createPostDB($title, $summary, $content, $user){
+    // Create a post
+    public function createPostDB($title, $summary, $content, $user)
+    {
         $datetime = date_create()->format('Y-m-d H:i:s');
         try {
             $req = "INSERT INTO `post` (`id_post`, `title`, `summary`, `content`, `creation_date`, `update_date`, `user_id`) VALUES (NULL, :title, :summary, :content, :datetime, :datetime, :user);";
@@ -196,12 +215,13 @@ class MainManager extends Model {
             $isRegistered = ($stmt->rowCount() > 0);
             $stmt->closeCursor();
             return $isRegistered;
-          } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo $req . "<br>" . $e->getMessage();
-          }
+        }
     }
-    //Get id user
-    public function getIdUser($email){
+    // Get id user
+    public function getIdUser($email)
+    {
         $pdo = $this->getBdd();
         $req = $pdo->prepare("SELECT id_user FROM user WHERE email = :email");
         $req->bindValue(':email', $email, PDO::PARAM_STR);
@@ -210,8 +230,9 @@ class MainManager extends Model {
         $req->closeCursor();
         return $datas;
     }
-    //Create a comment
-    public function createCommentDB($id, $comment, $user){
+    // Create a comment
+    public function createCommentDB($id, $comment, $user)
+    {
         $datetime = date_create()->format('Y-m-d H:i:s');
         try {
             $req = "INSERT INTO `comment` (`id_comment`, `comment_content`, `creation_date`, `is_valid`, `user_id`, `post_id`) VALUES (NULL, :comment, :datetime, 0, :user_id, :post_id);";
@@ -224,12 +245,13 @@ class MainManager extends Model {
             $isRegistered = ($stmt->rowCount() > 0);
             $stmt->closeCursor();
             return $isRegistered;
-          } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo $req . "<br>" . $e->getMessage();
-          }
+        }
     }
-    //Delete a comment
-    public function deleteCommentDB($id){
+    // Delete a comment
+    public function deleteCommentDB($id)
+    {
         $req = "DELETE FROM comment WHERE id_comment = :id";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -238,8 +260,9 @@ class MainManager extends Model {
         $stmt->closeCursor();
         return $isDeleted;
     }
-    //Confirm comment
-    public function confirmCommentDB($id){
+    // Confirm comment
+    public function confirmCommentDB($id)
+    {
         $req = "UPDATE comment SET is_valid = 1 WHERE id_comment = :id ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);

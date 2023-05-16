@@ -3,7 +3,8 @@
 require_once './app/models/MainManager.php';
 require_once './app/controllers/ToolboxClass.php';
 
-class MainController {
+class MainController
+{
 
     private $mainManager;
 
@@ -12,7 +13,8 @@ class MainController {
         $this->mainManager = new MainManager();
     }
 
-    private function genereratePage($data){
+    private function genereratePage($data)
+    {
         extract($data);
         ob_start();
         require_once($view);
@@ -20,34 +22,37 @@ class MainController {
         require_once($template);
     }
 
-    //HomePage
-    public function homePage(){
+    // HomePage
+    public function homePage()
+    {
         $datas = $this->mainManager->getDatas();
         $data_page = [
             "page_description" => "Page d'accueil du Blog de Franck Lebeau",
             "page_title" => "BlogFL - Accueil",
-            "datas"=> $datas,
+            "datas" => $datas,
             "view" => "./views/HomeView.php",
             "template" => "./views/common/template.php",
         ];
         $this->genereratePage($data_page);
     }
 
-    //Posts page
-    public function postsPage(){
+    // Posts page
+    public function postsPage()
+    {
         $datas = $this->mainManager->getDatas();
         $data_page = [
             "page_description" => "Page des posts - Liste de tous les posts",
             "page_title" => "BlogFL - Posts",
-            "datas"=> $datas,
+            "datas" => $datas,
             "view" => "./views/PostsView.php",
             "template" => "./views/common/template.php",
         ];
         $this->genereratePage($data_page);
     }
 
-    //Account page
-    public function accountPage(){
+    // Account page
+    public function accountPage()
+    {
         $email = filter_var($_SESSION['login']['email'], FILTER_SANITIZE_EMAIL);
         $datas = $this->mainManager->getUser($email);
         $data_page = [
@@ -61,21 +66,23 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
-    //Admin Page
-    public function adminPage(){
+    // Admin Page
+    public function adminPage()
+    {
         $datas = $this->mainManager->getDatas();
         $data_page = [
             "page_description" => "Page d'administration du blog",
             "page_title" => "BlogFL - Administration",
-            "datas"=> $datas,
+            "datas" => $datas,
             "view" => "./views/AdminView.php",
             "template" => "./views/common/template.php",
         ];
         $this->genereratePage($data_page);
     }
 
-    //Create post page
-    public function createPostPage(){
+    // Create post page
+    public function createPostPage()
+    {
         $data_page = [
             "page_description" => "Page de création d'un post",
             "page_title" => "BlogFL - Créer un post",
@@ -85,8 +92,9 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
-    //Create account page
-    public function createAccountPage(){
+    // Create account page
+    public function createAccountPage()
+    {
         $data_page = [
             "page_description" => "Page de création d'un compte",
             "page_title" => "BlogFL - Créer un compte",
@@ -96,8 +104,9 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
-    //Update post page
-    public function updatePostPage($id){
+    // Update post page
+    public function updatePostPage($id)
+    {
         $datas = $this->mainManager->getPost($id);
         $data_page = [
             "page_description" => "Page de modification d'un post",
@@ -109,8 +118,9 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
-    //Comments page
-    public function commentsPage($id){
+    // Comments page
+    public function commentsPage($id)
+    {
         $comments = $this->mainManager->getCommentsNotOK($id);
         $data_page = [
             "page_description" => "Page de modération des commentaires",
@@ -122,8 +132,9 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
-    //Post page
-    public function singlePostPage($id){
+    // Post page
+    public function singlePostPage($id)
+    {
         $datas = $this->mainManager->getPost($id);
         $comments = $this->mainManager->getCommentsOK($id);
         $data_page = [
@@ -137,9 +148,10 @@ class MainController {
         $this->genereratePage($data_page);
     }
 
-    //Login
-    public function validateLogin($email, $password){
-        if($this->mainManager->isCombinationValid($email, $password)){
+    // Login
+    public function validateLogin($email, $password)
+    {
+        if ($this->mainManager->isCombinationValid($email, $password)) {
             $newToken = Security::getRandomToken();
             $this->mainManager->setTokenDB($email, $newToken);
             Toolbox::showAlert("Vous êtes bien connecté", Toolbox::COULEUR_VERTE);
@@ -154,13 +166,14 @@ class MainController {
         }
     }
 
-    //Check session/DB tokens
-    public function validateSession(){
-        if(isset($_SESSION['login']['email'])){
+    // Check session/DB tokens
+    public function validateSession()
+    {
+        if (isset($_SESSION['login']['email'])) {
             $email = htmlspecialchars($_SESSION['login']['email']);
             $token1 = htmlspecialchars($_SESSION['login']['token']);
             $token2 = $this->mainManager->verifyToken($email);
-            if($token1===$token2){
+            if ($token1 === $token2) {
                 return 1;
             } else {
                 return 0;
@@ -170,15 +183,17 @@ class MainController {
         }
     }
 
-    //Check admin status
-    public function checkAdmin(){
+    // Check admin status
+    public function checkAdmin()
+    {
         $email = htmlspecialchars($_SESSION['login']['email']);
         $res = $this->mainManager->isAdmin($email);
         return $res;
     }
 
-    //Logout
-    public function logoutPage(){
+    // Logout
+    public function logoutPage()
+    {
         $email = htmlspecialchars($_SESSION['login']['email']);
         $this->mainManager->removeTokenDB($email);
         Toolbox::showAlert("Vous êtes maintenant déconnecté", Toolbox::COULEUR_VERTE);
@@ -187,11 +202,12 @@ class MainController {
         unset($_SESSION);
     }
 
-    //Register
-    public function validateRegistration($email, $password, $firstname, $lastname, $username){
-        if($this->mainManager->isAccountAvailable($email)){
+    // Register
+    public function validateRegistration($email, $password, $firstname, $lastname, $username)
+    {
+        if ($this->mainManager->isAccountAvailable($email)) {
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-            if($this->mainManager->createAccountDB($email, $passwordHash, $firstname, $lastname, $username)){
+            if ($this->mainManager->createAccountDB($email, $passwordHash, $firstname, $lastname, $username)) {
                 Toolbox::showAlert("Le compte a bien été créé ! Bienvenue à Twin Peaks !", Toolbox::COULEUR_VERTE);
                 header("Location:compte");
             } else {
@@ -204,10 +220,11 @@ class MainController {
         }
     }
 
-    //Update email
-    public function updateEmail($email){
-        if($this->mainManager->isAccountAvailable($email)){
-            if($this->mainManager->updateMailUser($_SESSION['login']['email'],$email)){
+    // Update email
+    public function updateEmail($email)
+    {
+        if ($this->mainManager->isAccountAvailable($email)) {
+            if ($this->mainManager->updateMailUser($_SESSION['login']['email'], $email)) {
                 Toolbox::showAlert("Votre email a bien été mis à jour", Toolbox::COULEUR_VERTE);
                 $_SESSION['login']['email'] = $email;
             } else {
@@ -215,14 +232,15 @@ class MainController {
             };
             header("Location:compte");
         } else {
-            Toolbox::showAlert("Ce mail est déjà utilisé par un autre compte",Toolbox::COULEUR_ROUGE);
+            Toolbox::showAlert("Ce mail est déjà utilisé par un autre compte", Toolbox::COULEUR_ROUGE);
             header("Location:compte");
         }
     }
 
-    //Delete account
-    public function deleteAccount(){
-        if($this->mainManager->deleteUserAccount($_SESSION['login']['email'])){
+    // Delete account
+    public function deleteAccount()
+    {
+        if ($this->mainManager->deleteUserAccount($_SESSION['login']['email'])) {
             Toolbox::showAlert("La suppression du compte est effectuée", Toolbox::COULEUR_VERTE);
             $this->logoutPage();
         } else {
@@ -231,12 +249,13 @@ class MainController {
         };
     }
 
-    //Create a new post
-    public function createPost($title, $summary, $content){
+    // Create a new post
+    public function createPost($title, $summary, $content)
+    {
         $email = htmlspecialchars($_SESSION['login']['email']);
         $user = $this->mainManager->getIdUser($email);
         $user = $user[0]['id_user'];
-        if($this->mainManager->createPostDB($title, $summary, $content, $user)){
+        if ($this->mainManager->createPostDB($title, $summary, $content, $user)) {
             Toolbox::showAlert("Le post a bien été créé ! ", Toolbox::COULEUR_VERTE);
             header("Location:posts");
         } else {
@@ -245,20 +264,22 @@ class MainController {
         };
     }
 
-    //Update a post
-    public function updatePost($id, $title, $summary, $content){
-        if($this->mainManager->updatePostDB($id, $title, $summary, $content)){
+    // Update a post
+    public function updatePost($id, $title, $summary, $content)
+    {
+        if ($this->mainManager->updatePostDB($id, $title, $summary, $content)) {
             Toolbox::showAlert("Le post a bien été modifié ! ", Toolbox::COULEUR_VERTE);
-            header("Location:article&id=".$id."");
+            header("Location:article&id=" . $id . "");
         } else {
             Toolbox::showAlert("Erreur lors de la modification du post", Toolbox::COULEUR_ORANGE);
-            header("Location:modifier-post&id=".$id."");
+            header("Location:modifier-post&id=" . $id . "");
         };
     }
 
-    //Delete a post
-    public function deletePost($id){
-        if($this->mainManager->deletePostDB($id)){
+    // Delete a post
+    public function deletePost($id)
+    {
+        if ($this->mainManager->deletePostDB($id)) {
             Toolbox::showAlert("Le post a bien été supprimé ! ", Toolbox::COULEUR_VERTE);
             header("Location:posts");
         } else {
@@ -267,23 +288,25 @@ class MainController {
         };
     }
 
-    //Create a comment
-    public function createComment($id, $comment){
+    // Create a comment
+    public function createComment($id, $comment)
+    {
         $email = htmlspecialchars($_SESSION['login']['email']);
         $user = $this->mainManager->getIdUser($email);
         $user = $user[0]['id_user'];
-        if($this->mainManager->createCommentDB($id, $comment, $user)){
+        if ($this->mainManager->createCommentDB($id, $comment, $user)) {
             Toolbox::showAlert("Le commentaire a bien été créé ! Il sera soumis à validation par nos équipes. ", Toolbox::COULEUR_VERTE);
-            header("Location:article&id=".$id."");
+            header("Location:article&id=" . $id . "");
         } else {
             Toolbox::showAlert("Erreur lors de la création du commentaire", Toolbox::COULEUR_ORANGE);
-            header("Location:article&id=".$id."");
+            header("Location:article&id=" . $id . "");
         };
     }
 
-    //Delete a comment
-    public function deleteComment($id){
-        if($this->mainManager->deleteCommentDB($id)){
+    // Delete a comment
+    public function deleteComment($id)
+    {
+        if ($this->mainManager->deleteCommentDB($id)) {
             Toolbox::showAlert("Le commentaire a bien été supprimé ! ", Toolbox::COULEUR_VERTE);
             header("Location:posts");
         } else {
@@ -292,14 +315,15 @@ class MainController {
         };
     }
 
-    //Confirm a comment
-    public function confirmComment($id){
-        if($this->mainManager->confirmCommentDB($id)){
+    // Confirm a comment
+    public function confirmComment($id)
+    {
+        if ($this->mainManager->confirmCommentDB($id)) {
             Toolbox::showAlert("Le commentaire a bien été validé ! ", Toolbox::COULEUR_VERTE);
             header("Location:posts");
         } else {
             Toolbox::showAlert("Erreur lors de la confirmation du commentaire", Toolbox::COULEUR_ORANGE);
-            header("Location:modification-post&id=".$id."");
+            header("Location:modification-post&id=" . $id . "");
         };
     }
 }

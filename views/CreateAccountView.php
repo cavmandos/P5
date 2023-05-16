@@ -1,5 +1,5 @@
 <?php
-    require_once('./views/common/headerCreateAccount.php');
+    require_once './views/common/headerCreateAccount.php';
 ?>
 
 <main class="mb-4">
