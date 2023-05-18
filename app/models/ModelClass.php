@@ -1,11 +1,14 @@
 <?php
 
-include './config.php';
+require './config.php';
 
 abstract class Model
 {
+
     private static $pdo;
 
+
+    // Set Database
     private static function setBdd()
     {
         try {
@@ -16,6 +19,8 @@ abstract class Model
         }
     }
 
+
+    // Get Database
     protected function getBdd()
     {
         if (self::$pdo === null) {
@@ -23,4 +28,5 @@ abstract class Model
         }
         return self::$pdo;
     }
+
 }

@@ -2,23 +2,23 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c45486539ee243ef993ae7c6ce2f6491)](https://app.codacy.com/gh/cavmandos/P5/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## Pré-requis pour lancer le projet
-- PHP 8.2 ou supérieur
-- Composer
-- Un serveur web (Apache, MySQL, PHP)
-- Un éditeur de code
+-   PHP 8.2 ou supérieur
+-   Composer
+-   Un serveur web (Apache, MySQL, PHP)
+-   Un éditeur de code
 
 ## Installation du projet
 Pour installer ce projet, les étapes sont :
 
-1. Cloner le repository
+1.  Cloner le repository
 
-2. A la racine du projet, installer les dépendances avec composer
+2.  A la racine du projet, installer les dépendances avec composer
 
-3. Importer la base de données se trouvant à la racine du projet
+3.  Importer la base de données se trouvant à la racine du projet
 
-4. Créer un fichier "config.php" où vous placerez vos informations de connexion à la Base de données / services de messagerie pour l'envoi de mail.
+4.  Créer un fichier "config.php" où vous placerez vos informations de connexion à la Base de données / services de messagerie pour l'envoi de mail.
 
-5. Dans ce fichier "config.php", déclarer vos constantes comme ceci :
+5.  Dans ce fichier "config.php", déclarer vos constantes comme ceci :
 
 ```
 define('DB_HOST', 'localhost');
@@ -30,11 +30,11 @@ define('DB_PASSWORD', 'root');
 define('EMAIL', 'votre_email_ici');
 define('PASSWORD', 'votre_mot_de_passe_ici');
 
-6. Lancer votre serveur
+6.  Lancer votre serveur
 
 Vous avez deux exemples de rôles :
-- Un admin = test@mail.com (mdp: test)
-- Un inscrit = test2@mail.com (mdp: test)
+-   Un admin = test@mail.com (mdp: test)
+-   Un inscrit = test2@mail.com (mdp: test)
 
 ### Description du Projet 5
 Le projet est de développer son blog professionnel. Ce site web se décompose en deux grands groupes de pages :
