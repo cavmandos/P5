@@ -4,7 +4,7 @@ require_once './views/common/headerAccount.php';
 $login = $_SESSION['login'];
 
 if (isset($login) === FALSE) {
-    Security::display('<div class="loginForm">
+    echo '<div class="loginForm">
         <form method="POST" action="validation_login" class="form-signin">
             <div class="d-flex align-items-center mb-3">
                 <img class="mx-2" src="./public/assets/img/Logo2.png" alt="Logo du blog" width="30" height="30">
@@ -24,11 +24,11 @@ if (isset($login) === FALSE) {
             <h2 class="h3 mb-0 font-weight-normal mx-3">Je n\'ai pas encore de compte</h2>
             <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="nouvel-utilisateur">Créer un compte</a></p>
         </div>
-    </div>');
+    </div>';
 } else {
-    $firstname = Security::secureHTML($datas[0]["first_name"]);
-    $email = Security::secureHTML($datas[0]["email"]);
-    Security::display('<div class="bg-light">
+    $firstname = Security::escapeOutput($datas[0]["first_name"]);
+    $email = Security::escapeOutput($datas[0]["email"]);
+    echo '<div class="bg-light">
     <div class="container py-4">
         <h2 class="text-center">Bonjour ' . $firstname . '</h2>
         <div id="mail" class="d-flex justify-content-center align-items-center">
@@ -67,14 +67,14 @@ if (isset($login) === FALSE) {
                 <a href="suppression_compte" class="btn btn-danger">Je supprime</a>
             </div>
         </div>
-        <p class="text-center my-2">Votre statut : ');
+        <p class="text-center my-2">Votre statut : ';
     if ($datas[0]["is_admin"] == 1) {
-        Security::display("administrateur");
+        echo "administrateur";
     } else {
-        Security::display("inscrit");
+        echo "inscrit";
     };
-    Security::display('</p>
+    echo '</p>
         <p class="text-center"><a class="btn btn-lg btn-secondary btn-block rounded-pill mx-auto" href="deconnexion">Se déconnecter</a></p>
     </div>
-    </div>');
+    </div>';
 }

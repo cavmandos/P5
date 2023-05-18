@@ -7,12 +7,12 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     <div class="container py-4 px-2">
         <div class="card mb-3">
             <div class="card-body">
-                <h2 class="card-title text-center"><?php Security::escapeOutput($datas[0]['title']) ?></h2>
+                <h2 class="card-title text-center"><?= Security::escapeOutput($datas[0]['title']) ?></h2>
                 <div class="d-flex align-items-center justify-content-center">
-                    <p class="text-secondary mt-0">Par <?php Security::escapeOutput($datas[0]['username']) ?> le <?php Security::escapeOutput($date) ?></p>
+                    <p class="text-secondary mt-0">Par <?= Security::escapeOutput($datas[0]['username']) ?> le <?= Security::escapeOutput($date) ?></p>
                 </div>
-                <p class="card-text h4"><?php Security::escapeOutput($datas[0]['summary']) ?></p>
-                <p class="card-text"><?php Security::escapeOutput($datas[0]['content']) ?></p>
+                <p class="card-text h4"><?= Security::escapeOutput($datas[0]['summary']) ?></p>
+                <p class="card-text"><?= Security::escapeOutput($datas[0]['content']) ?></p>
             </div>
         </div>
     </div>
@@ -24,10 +24,10 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
             <div class="col-12 col-md-10 card mb-2">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-end">
-                        <p class="bg-secondary rounded p-2 text-light m-2">Par <?php Security::escapeOutput($ligne['username']) ?> le <?php Security::escapeOutput($date2) ?></p>
+                        <p class="bg-secondary rounded p-2 text-light m-2">Par <?= Security::escapeOutput($ligne['username']) ?> le <?= Security::escapeOutput($date2) ?></p>
                     </div>
                     <div class="d-flex align-items-center justify-content-end">
-                        <p class="m-2"><?php Security::escapeOutput($ligne['comment_content']) ?></p>
+                        <p class="m-2"><?= Security::escapeOutput($ligne['comment_content']) ?></p>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     <?php
     $session = $_SESSION['login'];
     if (isset($session) === TRUE) {
-        $idPost = Security::secureHTML($datas[0]["id_post"]);
-        Security::display('<div class="container py-4">
+        $idPost = Security::escapeOutput($datas[0]["id_post"]);
+        echo '<div class="container py-4">
         <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id=' . $idPost . '">
         <!-- Comment -->
         <div class="form-outline mb-4">
@@ -48,7 +48,7 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
         <!-- Submit button -->
         <button type="submit" class="btn btn-secondary btn-block mb-4">Commenter</button>
         </form>
-    </div>');
+    </div>';
     }
     ?>
 </div>

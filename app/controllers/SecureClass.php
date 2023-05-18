@@ -29,7 +29,7 @@ class Security
     public static function escapeOutput($data)
     {
         $response = htmlspecialchars($data, (ENT_QUOTES | ENT_HTML5), 'UTF-8');
-        echo $response;
+        return $response;
     }
 
     public static function getAlerts()

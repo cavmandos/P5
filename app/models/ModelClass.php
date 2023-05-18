@@ -1,5 +1,7 @@
 <?php
 
+include './config.php';
+
 abstract class Model
 {
     private static $pdo;
@@ -7,7 +9,7 @@ abstract class Model
     private static function setBdd()
     {
         try {
-            self::$pdo = new PDO('mysql:host=localhost;dbname=Blog_P5;charset=utf8', 'root', 'root');
+            self::$pdo = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset='.DB_CHARSET, DB_USER, DB_PASSWORD);
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         } catch (Exception $e) {
             Security::display($e);

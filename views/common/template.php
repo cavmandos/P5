@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?php Security::escapeOutput($page_description) ?>">
-    <title><?php Security::escapeOutput($page_title) ?></title>
+    <meta name="description" content="<?= Security::escapeOutput($page_description) ?>">
+    <title><?= Security::escapeOutput($page_title) ?></title>
     <link rel="icon" type="image/x-icon" href="./public/assets/favicon.ico" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
@@ -19,7 +19,7 @@
     <?php require_once './views/common/menu.php'; ?>
 
     <!-- PAGE -->
-    <?php Security::display($page_content); ?>
+    <?= $page_content ?>
 
     <!-- FOOTER -->
     <?php require_once './views/common/footer.php'; ?>
@@ -30,7 +30,7 @@
 
 <?php if (empty($page_javascript) === FALSE) : ?>
         <?php foreach ($page_javascript as $fichier_javascript) : ?>
-            <script src="public/javascript/<?php Security::escapeOutput($fichier_javascript) ?>"></script>
+            <script src="public/javascript/<?= Security::escapeOutput($fichier_javascript) ?>"></script>
         <?php endforeach; ?>
 <?php endif; ?>
 </body>
