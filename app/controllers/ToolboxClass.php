@@ -6,11 +6,15 @@ class Toolbox
     public const COULEUR_ORANGE = "alert-warning";
     public const COULEUR_VERTE = "alert-success";
 
+
     public static function showAlert($message, $type)
     {
         $_SESSION['alert'][] = [
             "message" => $message,
             "type" => $type
         ];
+
     }
+
+
 }

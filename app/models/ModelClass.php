@@ -29,4 +29,5 @@ abstract class Model
         return self::$pdo;
     }
 
+    
 }

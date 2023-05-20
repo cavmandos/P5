@@ -1,5 +1,4 @@
 let btnUpdate = document.querySelector("#btnUpdateMail");
-let btnValidationMail = document.querySelector("#btnConfirmUpdate");
 let mailSection = document.querySelector("#mail");
 let mailUpdateSection = document.querySelector("#updateMail");
 let btnDeleteFirst = document.querySelector("#btnDeleteAccount");

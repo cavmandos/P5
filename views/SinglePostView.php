@@ -39,7 +39,7 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     if (isset($session) === TRUE) {
         $idPost = Security::escapeOutput($datas[0]["id_post"]);
         echo '<div class="container py-4">
-        <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id=' . $idPost . '">
+        <form id="create-comment" method="POST" action="validation_nouveau_commentaire&amp;id='.$idPost.'">
         <!-- Comment -->
         <div class="form-outline mb-4">
             <label class="form-label" for="comment">Votre commentaire</label>
