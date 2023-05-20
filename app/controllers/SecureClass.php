@@ -4,13 +4,6 @@ class Security
 {
 
 
-    // Return element secure element
-    public static function secureHTML($element)
-    {
-        return htmlspecialchars($element, ENT_NOQUOTES);
-    }
-
-
     // Check if logged
     public static function isAllowed()
     {

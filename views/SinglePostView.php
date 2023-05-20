@@ -35,7 +35,7 @@ $date = date("d.m.Y", strtotime($datas[0]['creation_date']));
     <?php endforeach; ?>
 
     <?php
-    $session = $_SESSION['login'];
+    $session = empty($_SESSION['login']) ? $_SESSION['login'] : FALSE;
     if (isset($session) === TRUE) {
         $idPost = Security::escapeOutput($datas[0]["id_post"]);
         echo '<div class="container py-4">
