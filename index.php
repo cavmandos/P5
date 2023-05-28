@@ -88,9 +88,9 @@ try {
 
         case "validation_nouveau_post":
             if (!empty($_POST['title']) && !empty($_POST['intro']) && !empty($_POST['text'])) {
-                $title = htmlspecialchars($_POST['title']);
-                $intro = htmlspecialchars($_POST['intro']);
-                $text = htmlspecialchars($_POST['text']);
+                $title = htmlspecialchars($_POST['title'], ENT_NOQUOTES, 'UTF-8');
+                $intro = htmlspecialchars($_POST['intro'], ENT_NOQUOTES, 'UTF-8');
+                $text = htmlspecialchars($_POST['text'], ENT_NOQUOTES, 'UTF-8');
                 $mainController->createPost($title, $intro, $text);
             } else {
                 Toolbox::showAlert("Tous les champs sont obligatoires pour publier un post", Toolbox::COULEUR_ROUGE);
@@ -112,9 +112,9 @@ try {
             if ($admin == 1 && $validate == 1 && $visitor == 1) {
                 if (!empty($_POST['title']) || !empty($_POST['intro']) || !empty($_POST['text'])) {
                     $id = htmlspecialchars(filter_var($_GET['id'], FILTER_VALIDATE_INT));
-                    $title = htmlspecialchars($_POST['title']);
-                    $intro = htmlspecialchars($_POST['intro']);
-                    $text = htmlspecialchars($_POST['text']);
+                    $title = htmlspecialchars($_POST['title'], ENT_NOQUOTES, 'UTF-8');
+                    $intro = htmlspecialchars($_POST['intro'], ENT_NOQUOTES, 'UTF-8');
+                    $text = htmlspecialchars($_POST['text'], ENT_NOQUOTES, 'UTF-8');
                     $mainController->updatePost($id, $title, $intro, $text);
                 } else {
                     Toolbox::showAlert("Tous les champs sont obligatoires pour publier un post", Toolbox::COULEUR_ROUGE);
@@ -170,7 +170,7 @@ try {
             if ($validate == 1 && $visitor == 1) {
                 if (!empty($_POST['comment'])) {
                     $id = htmlspecialchars(filter_var($_GET['id'], FILTER_VALIDATE_INT));
-                    $comment = htmlspecialchars($_POST['comment']);
+                    $comment = htmlspecialchars($_POST['comment'], ENT_NOQUOTES, 'UTF-8');
                     $mainController->createComment($id, $comment);
                 } else {
                     Toolbox::showAlert("Il faut... euh... un commentaire, pour publier... un commentaire", Toolbox::COULEUR_ROUGE);

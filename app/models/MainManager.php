@@ -50,11 +50,13 @@ class MainManager extends Model
     // Update post
     public function updatePostDB($id, $title, $summary, $content)
     {
-        $req = "UPDATE post SET title = :title, summary = :summary, content = :content WHERE id_post = :id ";
+        $datetime = date_create()->format('Y-m-d H:i:s');
+        $req = "UPDATE post SET title = :title, summary = :summary, content = :content, update_date = :updateDate WHERE id_post = :id ";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->bindValue(':title', $title, PDO::PARAM_STR);
         $stmt->bindValue(':summary', $summary, PDO::PARAM_STR);
         $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':updateDate', $datetime, PDO::PARAM_STR);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $isRegistered = ($stmt->rowCount() > 0);
