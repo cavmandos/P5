@@ -43,8 +43,8 @@ if (isset($login) === FALSE) {
         <div id="updateMail" class="d-none">
             <form method="POST" action="validation_modification_mail">
                 <div class="row justify-content-center align-items-center">
-                    <label for="email" class="col-2 col-form-label">Modifier :</label>
-                    <div class="col-5">
+                    <label for="email" class="col-md-2 col-12 col-form-label text-center">Modifier :</label>
+                    <div class="col-md-5 col-9">
                         <input type="email" class="form-control" name="email" value="'.$email.'" />
                     </div>
                     <div class="col-2">
@@ -58,7 +58,7 @@ if (isset($login) === FALSE) {
                 </div>
             </form>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center my-3">
             <button id="btnDeleteAccount" class="btn btn-danger">Supprimer son compte</button>
         </div>
         <div id="deleteAccount" class="d-none my-2">

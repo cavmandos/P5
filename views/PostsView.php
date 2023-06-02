@@ -6,7 +6,7 @@ require_once './views/common/headerPosts.php';
     <div class="container py-4">
         <?php $datas = array_reverse($datas);
         foreach ($datas as $ligne) :
-            $date = date("d.m.Y", strtotime($ligne['creation_date']));
+            $date = date("d.m.Y", strtotime($ligne['update_date']));
             ?>
             <div class="card mb-3">
                 <div class="card-body">

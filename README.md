@@ -30,7 +30,9 @@ define('DB_PASSWORD', 'root');
 define('EMAIL', 'votre_email_ici');
 define('PASSWORD', 'votre_mot_de_passe_ici');
 
-6.  Lancer votre serveur
+6.  Lancer votre serveur local
+
+7.  Tester le site
 
 Vous avez deux exemples de rôles :
 -   Un admin = test@mail.com (mdp: test)

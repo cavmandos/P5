@@ -5,7 +5,7 @@
         <!-- Display only 3 lasts posts -->
         <?php $datas = array_slice($datas, -3);
         foreach (array_reverse($datas) as $ligne) :
-            $date = date("d.m.Y", strtotime($ligne['creation_date']));
+            $date = date("d.m.Y", strtotime($ligne['update_date']));
         ?>
             <div class="card mb-3">
                 <div class="card-body">
@@ -24,7 +24,7 @@
                 <div class="d-flex flex-column align-items-center justify-content-around">
                     <img src="./public/assets/img/photo.jpg" class="rounded-circle" alt="Photo d'un curieux personnage" height="120px">
                     <p class="h3 my-3">Franck Lebeau</p>
-                    <p class="my-1">Développeur PHP/Symfony</p>
+                    <p class="my-1 text-center">Développeur PHP/Symfony</p>
                     <p><a href="./public/CV_Lebeau.pdf" class="btn btn-secondary mt-5 rounded" target="_blank">Télécharger le CV</a></p>
                 </div>
             </div>

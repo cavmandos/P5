@@ -1,6 +1,6 @@
 <?php
 require_once './views/common/headerSinglePost.php';
-$date = date("d.m.Y", strtotime($datas[0]['creation_date']));
+$date = date("d.m.Y", strtotime($datas[0]['update_date']));
 ?>
 
 <div class="bg-light">
